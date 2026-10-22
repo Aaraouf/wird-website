@@ -25,7 +25,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Jost:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/wird.css">
 <style>
-  .hero { padding-block: 48px 0; text-align: center; }
+  .hero { padding-block: 48px 0; text-align: center; background: linear-gradient(180deg, var(--sky) 0%, var(--canvas) 60%); }
+  .tree-art .blossom { fill: var(--blossom); }
+  .tree-art .fruit-dot { fill: var(--gold-fill); }
+  .tree-art .seed { fill: var(--gold-fill); }
+  .grow .stages { margin-bottom: 24px; }
+  @media (max-width: 899px) { .grow__art svg { max-height: calc(100svh - 300px); } }
   .hero__copy { display: flex; flex-direction: column; align-items: center; gap: 24px; }
   .hero h1 { max-width: 760px; }
   .hero .lede { max-width: 600px; }
@@ -118,6 +123,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
 
 <header class="nav">
   <nav class="nav__bar" aria-label="Main">
@@ -138,10 +144,10 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero__copy">
-      <p class="label">Free for iPhone and iPad</p>
-      <h1 id="hero-title" class="display">A calm daily companion<br> for prayer and the Quran.</h1>
-      <p class="lede">Keep the five prayers, the Quran and the small habits around them, gently. Your tree grows when you come back, and waits when you can’t.</p>
-      <div class="store" data-store>
+      <p class="label reveal reveal--blur">Free for iPhone and iPad</p>
+      <h1 id="hero-title" class="display reveal reveal--blur" style="--delay:100ms">A calm daily companion<br> for prayer and the Quran.</h1>
+      <p class="lede reveal reveal--blur" style="--delay:220ms">Keep the five prayers, the Quran and the small habits around them, gently. Your tree grows when you come back, and waits when you can’t.</p>
+      <div class="store reveal reveal--blur" style="--delay:340ms" data-store>
         <span class="store__soon">Coming soon to the App Store</span>
       </div>
     </div>
@@ -153,16 +159,16 @@
             <p class="screen__greeting">Rhythm</p>
             <p class="meta" style="font-size:0.875rem">Return to rhythm, not perfection.</p>
           </div>
-          <svg class="arc" viewBox="0 0 342 140" width="100%">
+          <svg class="arc" data-grow viewBox="0 0 342 140" width="100%">
             <path d="M16 112 Q171 -28 326 112" fill="none" stroke="var(--hairline)" stroke-width="1.5" stroke-dasharray="2 5" stroke-linecap="round"/>
-            <path d="M16 112 L28.4 101.2 L40.8 91.4 L53.2 82.4 L65.6 74.4 L78.0 67.2 L90.4 60.9 L102.8 55.6 L115.2 51.1 L127.6 47.5 L140.0 44.8 L152.4 43.0 L164.8 42.1 L177.2 42.1 L189.6 43.0 L202.0 44.8 L214.4 47.5 L226.8 51.1 L239.2 55.6 L251.6 60.9 L264.0 67.2" fill="none" stroke="var(--gold-fill)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+            <path class="draw" d="M16 112 L28.4 101.2 L40.8 91.4 L53.2 82.4 L65.6 74.4 L78.0 67.2 L90.4 60.9 L102.8 55.6 L115.2 51.1 L127.6 47.5 L140.0 44.8 L152.4 43.0 L164.8 42.1 L177.2 42.1 L189.6 43.0 L202.0 44.8 L214.4 47.5 L226.8 51.1 L239.2 55.6 L251.6 60.9 L264.0 67.2" fill="none" stroke="var(--gold-fill)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
             <line x1="10" y1="112" x2="332" y2="112" stroke="var(--hairline)"/>
-            <circle cx="40.8" cy="91.4" r="6" fill="var(--gold-fill)"/>
-            <circle cx="146.2" cy="43.8" r="6" fill="var(--gold-fill)"/>
-            <circle cx="202" cy="44.8" r="6" fill="var(--canvas)" stroke="var(--gold-fill)" stroke-width="1.5"/>
-            <circle cx="245.4" cy="58.1" r="6" fill="var(--gold-fill)"/>
-            <circle cx="285.7" cy="80.3" r="6" fill="var(--canvas)" stroke="var(--gold-fill)" stroke-width="1.5"/>
-            <circle cx="264" cy="67.2" r="4" fill="var(--water)"/>
+            <circle class="pd is-prayed" style="--delay:540ms" cx="40.8" cy="91.4" r="6" stroke="var(--gold-fill)" stroke-width="1.5"/>
+            <circle class="pd is-prayed" style="--delay:1560ms" cx="146.2" cy="43.8" r="6" stroke="var(--gold-fill)" stroke-width="1.5"/>
+            <circle class="pd" cx="202" cy="44.8" r="6" fill="var(--canvas)" stroke="var(--gold-fill)" stroke-width="1.5"/>
+            <circle class="pd is-prayed" style="--delay:2520ms" cx="245.4" cy="58.1" r="6" stroke="var(--gold-fill)" stroke-width="1.5"/>
+            <circle class="pd" cx="285.7" cy="80.3" r="6" fill="var(--canvas)" stroke="var(--gold-fill)" stroke-width="1.5"/>
+            <circle class="sun" r="4" fill="var(--water)"/>
             <text x="40.8" y="132" text-anchor="middle">Fajr</text>
             <text x="146.2" y="132" text-anchor="middle">Dhuhr</text>
             <text x="198" y="132" text-anchor="middle">Asr</text>
@@ -185,7 +191,7 @@
         <figcaption class="label">Rhythm, for doing</figcaption>
       </figure>
 
-      <figure class="reveal" style="--delay:120ms">
+      <figure class="reveal moment" style="--delay:120ms">
         <div class="screen" aria-hidden="true">
           <div>
             <p class="meta">Tuesday · 9 Jumada I</p>
@@ -197,20 +203,22 @@
               <path class="ground" d="M24 136 L136 136" stroke-width="1"/>
               <path class="stem" d="M80 136 C80 112 78 98 81 76 C83 62 80 54 80 44" stroke-width="2" fill="none" stroke-linecap="round"/>
               <g class="leaves">
-                <path d="M80 108 C70 104 62 100 54 92 C64 89 74 96 80 108z"/>
-                <path d="M81 96 C90 92 98 88 106 80 C96 77 86 84 81 96z"/>
-                <path d="M81 80 C73 76 67 72 61 66 C69 63 77 69 81 80z"/>
-                <path d="M81 70 C88 66 94 62 99 56 C92 54 85 59 81 70z"/>
-                <path d="M80 50 C76 46 75 41 80 34 C85 41 84 46 80 50z"/>
+                <path style="--i:4" d="M80 108 C70 104 62 100 54 92 C64 89 74 96 80 108z"/>
+                <path style="--i:3" d="M81 96 C90 92 98 88 106 80 C96 77 86 84 81 96z"/>
+                <path style="--i:2" d="M81 80 C73 76 67 72 61 66 C69 63 77 69 81 80z"/>
+                <path style="--i:1" d="M81 70 C88 66 94 62 99 56 C92 54 85 59 81 70z"/>
+                <path style="--i:0" d="M80 50 C76 46 75 41 80 34 C85 41 84 46 80 50z"/>
               </g>
+              <path class="drop" d="M80 14 C76 21 74 25 74 28.5 a6 6 0 0 0 12 0 C86 25 84 21 80 14z" fill="var(--water)"/>
+              <ellipse class="ripple" cx="80" cy="136" rx="16" ry="3.5" fill="none" stroke="var(--water)" stroke-width="1"/>
             </svg>
             <p class="tree-card__line">You came to the water today.</p>
-            <div class="growth"><span></span></div>
+            <div class="growth"><span class="growth__fill"></span></div>
           </div>
           <div class="prayer-bar">
             <div>
               <p>Isha in 1h 12m</p>
-              <div class="dots"><span class="is-prayed"></span><span class="is-prayed"></span><span></span><span class="is-prayed"></span><span></span></div>
+              <div class="dots"><span class="is-prayed" style="--i:0"></span><span class="is-prayed" style="--i:1"></span><span></span><span class="is-prayed" style="--i:2"></span><span></span></div>
             </div>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-secondary)"><path d="M6 9l6 6 6-6"/></svg>
           </div>
@@ -218,7 +226,10 @@
             <div class="roots__next">
               <p class="meta">Next</p>
               <p class="roots__name">Read one page</p>
-              <div class="roots__actions"><span class="mini-btn mini-btn--action">Begin</span><span class="mini-btn mini-btn--plain">Not tonight</span></div>
+              <div class="roots__act">
+                <div class="roots__actions"><span class="mini-btn mini-btn--action">Begin</span><span class="mini-btn mini-btn--plain">Not tonight</span></div>
+                <p class="roots__done"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C9 7 6 10.5 6 14a6 6 0 0 0 12 0c0-3.5-3-7-6-12z"/></svg>A drop reached your tree</p>
+              </div>
             </div>
           </div>
         </div>
@@ -262,37 +273,42 @@
     </div>
   </section>
 
-  <section class="section" aria-labelledby="tree-title" style="background:var(--surface)">
-    <div class="wrap split">
-      <div class="split__copy reveal">
+  <section class="section grow" aria-labelledby="tree-title" style="background:var(--surface)">
+    <div class="wrap">
+      <div class="measure reveal">
         <p class="label label--leaf">The living tree</p>
         <h2 id="tree-title" class="title">Prayer is the trunk.<br> Your habits are the roots.</h2>
-        <p class="lede">Every prayer you log and every root you water sends a drop to your tree. It grows through nine stages over months, and its leaves show how the last few days have felt.</p>
-        <p class="secondary">On quiet days it grows thirsty. It never dies, and one green bud always survives. Come back, and it lifts again.</p>
-        <ul class="stages" aria-label="The nine stages">
-          <li>Seed</li><li>Sprout</li><li class="is-here">Seedling</li><li>Sapling</li><li>Young Tree</li><li>Established</li><li>Mature</li><li>Flourishing</li><li>Ancient</li>
-        </ul>
-      </div>
-      <div class="reveal" style="--delay:150ms;max-width:320px;margin-inline:auto;width:100%">
-        <svg class="tree-art" data-grow viewBox="0 0 260 330" width="100%" role="img" aria-labelledby="tree-art-title">
-          <title id="tree-art-title">A young tree: a gold trunk for prayer, sage leaves, and roots for daily habits.</title>
-          <path class="ground" d="M20 196 Q130 188 240 196" stroke-width="1" fill="none"/>
-          <path class="trunk draw" d="M130 196 C130 160 126 130 132 98 C135 80 130 66 130 50" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <g class="leaves">
-            <path class="unfold" style="--delay:700ms;--origin:right bottom" d="M131 140 C118 136 106 130 96 118 C110 114 124 124 131 140z"/>
-            <path class="unfold" style="--delay:850ms;--origin:left bottom" d="M132 124 C144 120 156 112 164 100 C150 96 138 108 132 124z"/>
-            <path class="unfold" style="--delay:1000ms;--origin:right bottom" d="M131 100 C121 96 112 90 105 80 C116 77 126 86 131 100z"/>
-            <path class="unfold" style="--delay:1150ms;--origin:left bottom" d="M132 86 C141 82 150 76 156 66 C145 64 136 72 132 86z"/>
-            <path class="unfold" style="--delay:1300ms;--origin:center bottom" d="M130 56 C125 50 125 43 130 34 C135 43 135 50 130 56z"/>
-          </g>
-          <g class="roots-line" fill="none" stroke-width="1.8" stroke-linecap="round">
-            <path class="draw" style="--delay:1500ms" d="M130 198 C122 226 104 240 86 262"/>
-            <path class="draw" style="--delay:1650ms" d="M130 198 C134 232 150 250 172 270"/>
-            <path class="draw" style="--delay:1800ms" d="M130 198 C128 240 126 270 128 300"/>
-          </g>
-        </svg>
+        <p class="lede" style="margin-top:16px">Every prayer you log and every root you water sends a drop to your tree. It grows through nine stages over months, and its leaves show how the last few days have felt.</p>
       </div>
     </div>
+    <div class="grow__track">
+      <div class="grow__stage wrap">
+        <div class="grow__copy">
+          <ul class="stages" aria-label="The nine stages"><li style="--in:0.0%;--out:11.1%">Seed</li><li style="--in:11.1%;--out:22.2%">Sprout</li><li style="--in:22.2%;--out:33.3%">Seedling</li><li style="--in:33.3%;--out:44.4%">Sapling</li><li style="--in:44.4%;--out:55.6%">Young Tree</li><li style="--in:55.6%;--out:66.7%">Established</li><li style="--in:66.7%;--out:77.8%">Mature</li><li style="--in:77.8%;--out:88.9%">Flourishing</li><li class="is-here" style="--in:88.9%;--out:100.0%">Ancient</li></ul>
+          <div class="grow__lines">
+          <p class="grow__line" style="--in:0%;--out:24%">A seed in the ground. Each prayer sends it a drop.</p>
+          <p class="grow__line" style="--in:24%;--out:52%">Roots reach down as your habits take hold.</p>
+          <p class="grow__line" style="--in:52%;--out:78%">Once established, it blossoms.</p>
+          <p class="grow__line" style="--in:78%;--out:100%">An ancient tree carries gold fruit. It still waits when you can’t.</p>
+          </div>
+        </div>
+        <div class="grow__art">
+        <svg class="tree-art" viewBox="0 0 320 420" role="img" aria-labelledby="tree-art-title">
+          <title id="tree-art-title">A tree growing from a seed to an ancient tree: a gold trunk for prayer, sage leaves, roots for daily habits, then blossoms and gold fruit.</title>
+          <path class="ground" d="M30 300 Q160 292 290 300" stroke-width="1" fill="none"/>
+          <ellipse class="seed sc-vanish" style="--in:9%;--out:15%;--origin:center" cx="160" cy="292" rx="7" ry="9"/>
+          <g class="roots-line"><path class=" sc-draw" style="--in:18%;--out:58%" pathLength="100" d="M160 302 C150 330 130 345 110 368" stroke-width="1.8" fill="none" stroke-linecap="round"/><path class=" sc-draw" style="--in:22%;--out:62%" pathLength="100" d="M160 302 C166 335 185 352 206 372" stroke-width="1.8" fill="none" stroke-linecap="round"/><path class=" sc-draw" style="--in:28%;--out:68%" pathLength="100" d="M160 302 C158 340 156 370 158 400" stroke-width="1.8" fill="none" stroke-linecap="round"/><path class=" sc-draw" style="--in:62%;--out:90%" pathLength="100" d="M138 335 C120 350 100 358 84 380" stroke-width="1.4" fill="none" stroke-linecap="round"/><path class=" sc-draw" style="--in:66%;--out:94%" pathLength="100" d="M182 338 C200 352 218 362 236 384" stroke-width="1.4" fill="none" stroke-linecap="round"/><path class=" sc-draw" style="--in:72%;--out:98%" pathLength="100" d="M157 362 C140 376 128 392 118 408" stroke-width="1.4" fill="none" stroke-linecap="round"/><path class=" sc-draw" style="--in:76%;--out:100%" pathLength="100" d="M158 362 C176 378 190 392 198 410" stroke-width="1.4" fill="none" stroke-linecap="round"/></g>
+          <path class="trunk sc-draw" style="--in:7%;--out:62%" pathLength="100" d="M160 300 C160 250 156 200 162 150 C166 120 160 95 160 70" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path class="trunk sc-fade" style="--in:64%;--out:80%" d="M160 300 C160 250 156 200 162 150 C165 130 162 115 161 105" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <g class="trunk-branches"><path class="trunk sc-draw" style="--in:33%;--out:42%" pathLength="100" d="M161 200 C140 190 125 180 108 160" stroke-width="2" fill="none" stroke-linecap="round"/><path class="trunk sc-draw" style="--in:36%;--out:45%" pathLength="100" d="M161 180 C180 170 198 160 212 140" stroke-width="2" fill="none" stroke-linecap="round"/><path class="trunk sc-draw" style="--in:44%;--out:53%" pathLength="100" d="M162 150 C145 140 130 128 118 108" stroke-width="2" fill="none" stroke-linecap="round"/><path class="trunk sc-draw" style="--in:47%;--out:56%" pathLength="100" d="M161 125 C178 115 192 102 200 84" stroke-width="2" fill="none" stroke-linecap="round"/><path class="trunk sc-draw" style="--in:66%;--out:75%" pathLength="100" d="M160 230 C185 222 205 215 228 205" stroke-width="2" fill="none" stroke-linecap="round"/><path class="trunk sc-draw" style="--in:67%;--out:76%" pathLength="100" d="M160 240 C135 232 115 225 92 215" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+          <g class="leaves"><g transform="translate(158 282) rotate(10) scale(0.6 0.6)"><path class="sc-appear" style="--in:12%;--out:19%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(162 272) rotate(-10) scale(-0.6 0.6)"><path class="sc-appear" style="--in:14%;--out:21%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(157 256) rotate(5) scale(0.7 0.7)"><path class="sc-appear" style="--in:23%;--out:30%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(163 244) rotate(-5) scale(-0.7 0.7)"><path class="sc-appear" style="--in:25%;--out:32%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(134 183) rotate(20) scale(0.75 0.75)"><path class="sc-appear" style="--in:36%;--out:43%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(112 163) rotate(10) scale(0.7 0.7)"><path class="sc-appear" style="--in:39%;--out:46%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(188 166) rotate(-20) scale(-0.75 0.75)"><path class="sc-appear" style="--in:38%;--out:45%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(210 143) rotate(-10) scale(-0.7 0.7)"><path class="sc-appear" style="--in:41%;--out:48%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(140 138) rotate(20) scale(0.8 0.8)"><path class="sc-appear" style="--in:46%;--out:53%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(122 112) rotate(10) scale(0.75 0.75)"><path class="sc-appear" style="--in:48%;--out:55%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(180 116) rotate(-20) scale(-0.8 0.8)"><path class="sc-appear" style="--in:49%;--out:56%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(198 88) rotate(-10) scale(-0.75 0.75)"><path class="sc-appear" style="--in:51%;--out:58%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(160 70) rotate(52) scale(0.8 0.8)"><path class="sc-appear" style="--in:53%;--out:60%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(148 212) rotate(25) scale(0.7 0.7)"><path class="sc-appear" style="--in:56%;--out:62%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(174 196) rotate(-25) scale(-0.7 0.7)"><path class="sc-appear" style="--in:57%;--out:63%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(150 165) rotate(30) scale(0.65 0.65)"><path class="sc-appear" style="--in:58%;--out:64%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(171 142) rotate(-30) scale(-0.65 0.65)"><path class="sc-appear" style="--in:59%;--out:65%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(126 128) rotate(40) scale(0.6 0.6)"><path class="sc-appear" style="--in:60%;--out:66%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(192 104) rotate(-40) scale(-0.6 0.6)"><path class="sc-appear" style="--in:61%;--out:67%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(206 212) rotate(-15) scale(-0.8 0.8)"><path class="sc-appear" style="--in:68%;--out:75%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(228 205) rotate(0) scale(-0.7 0.7)"><path class="sc-appear" style="--in:70%;--out:77%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(114 222) rotate(15) scale(0.8 0.8)"><path class="sc-appear" style="--in:69%;--out:76%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(92 215) rotate(0) scale(0.7 0.7)"><path class="sc-appear" style="--in:71%;--out:78%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(104 152) rotate(35) scale(0.6 0.6)"><path class="sc-appear" style="--in:72%;--out:78%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(218 124) rotate(-35) scale(-0.6 0.6)"><path class="sc-appear" style="--in:73%;--out:79%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(100 188) rotate(20) scale(0.65 0.65)"><path class="sc-appear" style="--in:79%;--out:85%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(222 172) rotate(-20) scale(-0.65 0.65)"><path class="sc-appear" style="--in:80%;--out:86%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(96 236) rotate(10) scale(0.6 0.6)"><path class="sc-appear" style="--in:89%;--out:95%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(230 232) rotate(-10) scale(-0.6 0.6)"><path class="sc-appear" style="--in:90%;--out:96%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(144 98) rotate(30) scale(0.65 0.65)"><path class="sc-appear" style="--in:92%;--out:98%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g><g transform="translate(178 90) rotate(-30) scale(-0.65 0.65)"><path class="sc-appear" style="--in:93%;--out:99%" d="M0 0 C-13 -4 -25 -10 -35 -22 C-21 -26 -7 -16 0 0z"/></g></g>
+          <g class="blossoms"><circle class="blossom sc-appear" style="--in:60%;--out:66%;--origin:center" cx="108" cy="160" r="4.5"/><circle class="blossom sc-appear" style="--in:61%;--out:67%;--origin:center" cx="212" cy="140" r="4.5"/><circle class="blossom sc-appear" style="--in:62%;--out:68%;--origin:center" cx="118" cy="108" r="4.5"/><circle class="blossom sc-appear" style="--in:63%;--out:69%;--origin:center" cx="200" cy="84" r="4.5"/></g>
+          <g class="fruit"><circle class="fruit-dot sc-appear" style="--in:79%;--out:85%;--origin:center" cx="122" cy="150" r="4.5"/><circle class="fruit-dot sc-appear" style="--in:80%;--out:86%;--origin:center" cx="198" cy="122" r="4.5"/><circle class="fruit-dot sc-appear" style="--in:81%;--out:87%;--origin:center" cx="136" cy="172" r="4.5"/><circle class="fruit-dot sc-appear" style="--in:82%;--out:88%;--origin:center" cx="184" cy="152" r="4.5"/><circle class="fruit-dot sc-appear" style="--in:89%;--out:95%;--origin:center" cx="108" cy="202" r="4.5"/><circle class="fruit-dot sc-appear" style="--in:90%;--out:96%;--origin:center" cx="214" cy="197" r="4.5"/><circle class="fruit-dot sc-appear" style="--in:91%;--out:97%;--origin:center" cx="160" cy="104" r="4.5"/></g>
+        </svg>
+        </div>
+      </div>
+    </div>
+    <div class="wrap"><p class="secondary measure" style="margin-top:32px">On quiet days it grows thirsty. It never dies, and one green bud always survives. Come back, and it lifts again.</p></div>
   </section>
 
   <section id="features" class="section" aria-labelledby="tabs-title">
@@ -302,7 +318,7 @@
         <p class="lede" style="margin-top:16px">Wird shows the next step, not the whole list. You never open it to a wall of what you haven’t done.</p>
       </div>
       <div class="tabs">
-        <article class="tab-card card reveal">
+        <article class="tab-card card reveal lift">
           <h3 class="heading">Today</h3>
           <p>A glance at your tree, the next prayer and one next step. Tap a dot to log a prayer; passed prayers simply read Make up.</p>
           <div class="tab-card__show" aria-hidden="true">
@@ -310,7 +326,7 @@
             <div class="dots" style="margin:0"><span class="is-prayed"></span><span class="is-prayed"></span><span></span><span></span><span></span></div>
           </div>
         </article>
-        <article class="tab-card card reveal" style="--delay:100ms">
+        <article class="tab-card card reveal lift" style="--delay:100ms">
           <h3 class="heading">Rhythm</h3>
           <p>Your day prayer by prayer, with the practices you attach to each one, a short ayah, and an evening check‑in, journal and dhikr counter.</p>
           <div class="tab-card__show" aria-hidden="true" style="padding:0;overflow:hidden">
@@ -320,7 +336,7 @@
             </ul>
           </div>
         </article>
-        <article class="tab-card card reveal">
+        <article class="tab-card card reveal lift">
           <h3 class="heading">Discover</h3>
           <p>Stories, the Quran and our history, a few minutes at a time. Only reviewed content from named sources, and a gentle pause after five stories.</p>
           <div class="tab-card__show" aria-hidden="true">
@@ -328,7 +344,7 @@
             <p class="meta">Keep going, or take what you’ve learned into your day.</p>
           </div>
         </article>
-        <article class="tab-card card reveal" style="--delay:100ms">
+        <article class="tab-card card reveal lift" style="--delay:100ms">
           <h3 class="heading">Journey</h3>
           <p>Your week, your month in Hijri or Gregorian, and one quiet insight worked out on your phone. Only you see it.</p>
           <div class="tab-card__show" aria-hidden="true">
@@ -348,7 +364,7 @@
         <p class="lede">One reader for everything: the Uthmani text, a translation beside it, and a reciter you can follow verse by verse.</p>
         <ul>
           <li><strong style="color:var(--ink)">Listen and follow.</strong> Each verse lights up as it is recited, with repeat and speed controls.</li>
-          <li><strong style="color:var(--ink)">Recite back.</strong> Recite from memory and Wird marks the words to review. Your voice is checked on your phone and never uploaded.</li>
+          <li><strong style="color:var(--ink)">Recite back.</strong> Recite from memory and Wird marks the words to review. Your voice is checked on your phone and never uploaded. It does not grade tajweed and is not a religious ruling.</li>
           <li><strong style="color:var(--ink)">Memorize steadily.</strong> Reviews come back at the right time, so what you learn stays.</li>
         </ul>
         <p class="label">Arabic text from Tanzil, unmodified. Translations from QuranEnc.</p>
@@ -357,14 +373,14 @@
         <div class="screen" aria-hidden="true" style="max-width:400px">
           <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center">
             <p class="roots__name" style="font-size:1.25rem">Al-Baqarah</p>
-            <div class="modes"><span>Listen</span><span>Follow</span><span class="is-on">Recite</span></div>
+            <div class="modes"><span>Listen</span><span class="is-on">Follow</span><span>Recite</span></div>
           </div>
           <div class="ayah-card">
-            <p class="quran">لَا يُكَلِّفُ ٱللَّهُ نَفْسًا <span class="word-review">إِلَّا</span> وُسْعَهَا</p>
+            <p class="quran follow"><span style="--i:0">لَا</span> <span style="--i:1">يُكَلِّفُ</span> <span style="--i:2">ٱللَّهُ</span> <span style="--i:3">نَفْسًا</span> <span style="--i:4">إِلَّا</span> <span style="--i:5">وُسْعَهَا</span></p>
             <p class="translation">Allah does not burden a soul beyond what it can bear.</p>
-            <p class="meta">2:286 · 1 word to review</p>
+            <p class="meta">2:286 · Following along</p>
           </div>
-          <p class="meta" style="text-align:center">Recite back does not grade tajweed and is not a religious ruling.</p>
+          <p class="meta" style="text-align:center">Each word lights as it is recited.</p>
         </div>
       </div>
     </div>
@@ -376,8 +392,8 @@
         <h2 id="widgets-title" class="title">On your Home Screen and Lock Screen.</h2>
         <p class="lede" style="margin-top:16px">See the next prayer and today’s ayah without opening the app. A discreet mode hides prayer names on the Lock Screen.</p>
       </div>
-      <div class="widgets reveal" style="margin-top:48px" aria-hidden="true">
-        <div>
+      <div class="widgets" style="margin-top:48px" aria-hidden="true">
+        <div class="reveal">
           <div class="widget widget--small">
             <p class="meta">Next prayer</p>
             <div>
@@ -389,7 +405,7 @@
           </div>
           <p class="label widget-label">Prayers</p>
         </div>
-        <div>
+        <div class="reveal" style="--delay:150ms">
           <div class="widget widget--medium">
             <p class="quran">لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا</p>
             <p style="font-family:var(--font-display);font-size:0.9375rem;line-height:1.35">Allah does not burden a soul beyond what it can bear.</p>

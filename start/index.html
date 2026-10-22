@@ -82,6 +82,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
 
 <header class="nav">
   <div class="nav__bar">
@@ -98,16 +99,16 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <p class="label">For iPhone and iPad</p>
-        <h1 id="hero-title" class="display">Come back to prayer,<br> one gentle day at a time.</h1>
-        <p class="lede">Wird is a calm companion for the five prayers, the Quran and the small habits that hold a day together. Built for people rebuilding a practice, not perfecting one.</p>
-        <div class="store" data-store>
+        <p class="label reveal reveal--blur">For iPhone and iPad</p>
+        <h1 id="hero-title" class="display reveal reveal--blur" style="--delay:100ms">Come back to prayer,<br> one gentle day at a time.</h1>
+        <p class="lede reveal reveal--blur" style="--delay:220ms">Wird is a calm companion for the five prayers, the Quran and the small habits that hold a day together. Built for people rebuilding a practice, not perfecting one.</p>
+        <div class="store reveal reveal--blur" style="--delay:340ms" data-store>
           <span class="store__soon">Coming soon to the App Store</span>
           <span class="store__note">Free, with no ads and no tracking.</span>
         </div>
       </div>
 
-      <figure class="reveal" aria-label="Wird's Today screen: your tree, the next prayer and one next step">
+      <figure class="reveal moment" style="--delay:200ms" aria-label="Wird's Today screen: your tree, the next prayer and one next step">
         <div class="screen" aria-hidden="true">
           <div>
             <p class="meta">Tuesday · 9 Jumada I</p>
@@ -119,21 +120,23 @@
               <path class="ground" d="M24 136 L136 136" stroke-width="1"/>
               <path class="stem" d="M80 136 C80 112 78 98 81 76 C83 62 80 54 80 44" stroke-width="2" fill="none" stroke-linecap="round"/>
               <g class="leaves">
-                <path d="M80 108 C70 104 62 100 54 92 C64 89 74 96 80 108z"/>
-                <path d="M81 96 C90 92 98 88 106 80 C96 77 86 84 81 96z"/>
-                <path d="M81 80 C73 76 67 72 61 66 C69 63 77 69 81 80z"/>
-                <path d="M81 70 C88 66 94 62 99 56 C92 54 85 59 81 70z"/>
-                <path d="M80 50 C76 46 75 41 80 34 C85 41 84 46 80 50z"/>
+                <path style="--i:4" d="M80 108 C70 104 62 100 54 92 C64 89 74 96 80 108z"/>
+                <path style="--i:3" d="M81 96 C90 92 98 88 106 80 C96 77 86 84 81 96z"/>
+                <path style="--i:2" d="M81 80 C73 76 67 72 61 66 C69 63 77 69 81 80z"/>
+                <path style="--i:1" d="M81 70 C88 66 94 62 99 56 C92 54 85 59 81 70z"/>
+                <path style="--i:0" d="M80 50 C76 46 75 41 80 34 C85 41 84 46 80 50z"/>
               </g>
+              <path class="drop" d="M80 14 C76 21 74 25 74 28.5 a6 6 0 0 0 12 0 C86 25 84 21 80 14z" fill="var(--water)"/>
+              <ellipse class="ripple" cx="80" cy="136" rx="16" ry="3.5" fill="none" stroke="var(--water)" stroke-width="1"/>
             </svg>
             <p class="tree-card__line">You came to the water today.</p>
-            <div class="growth"><span></span></div>
+            <div class="growth"><span class="growth__fill"></span></div>
             <p style="margin-top:12px;font-size:0.875rem;color:var(--accent-text);font-weight:600">How your tree grows ›</p>
           </div>
           <div class="prayer-bar">
             <div>
               <p>Isha in 1h 12m</p>
-              <div class="dots"><span class="is-prayed"></span><span class="is-prayed"></span><span class="is-prayed"></span><span class="is-prayed"></span><span></span></div>
+              <div class="dots"><span class="is-prayed" style="--i:0"></span><span class="is-prayed" style="--i:1"></span><span class="is-prayed" style="--i:2"></span><span class="is-prayed" style="--i:3"></span><span></span></div>
             </div>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-secondary)"><path d="M6 9l6 6 6-6"/></svg>
           </div>
@@ -144,7 +147,10 @@
                 <p class="meta">Next</p>
                 <p class="roots__name">Read one page</p>
                 <p class="meta" style="font-size:0.875rem">About 3 minutes</p>
-                <div class="roots__actions"><span class="mini-btn mini-btn--action">Begin</span><span class="mini-btn mini-btn--plain">Not tonight</span></div>
+                <div class="roots__act">
+                  <div class="roots__actions"><span class="mini-btn mini-btn--action">Begin</span><span class="mini-btn mini-btn--plain">Not tonight</span></div>
+                  <p class="roots__done"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C9 7 6 10.5 6 14a6 6 0 0 0 12 0c0-3.5-3-7-6-12z"/></svg>A drop reached your tree</p>
+                </div>
               </div>
               <div class="roots__row">
                 <div><p>33 dhikr</p><p class="meta">Done</p></div>
@@ -166,10 +172,10 @@
       <div class="reveal" style="--delay:150ms">
         <div class="compare__head label" aria-hidden="true"><span>Elsewhere</span><span></span><span>In Wird</span></div>
         <ul class="compare card" aria-label="How Wird words things differently">
-          <li><span class="old">Missed</span><span class="arrow" aria-hidden="true">→</span><span class="new">Make up</span></li>
-          <li><span class="old">Skip</span><span class="arrow" aria-hidden="true">→</span><span class="new">Not tonight</span></li>
-          <li><span class="old">Your streak ended</span><span class="arrow" aria-hidden="true">→</span><span class="new">Your tree is resting</span></li>
-          <li><span class="old">You fell behind</span><span class="arrow" aria-hidden="true">→</span><span class="new">Your tree is ready when you are</span></li>
+          <li class="reveal" style="--delay:200ms"><span class="old">Missed</span><span class="arrow" aria-hidden="true">→</span><span class="new">Make up</span></li>
+          <li class="reveal" style="--delay:350ms"><span class="old">Skip</span><span class="arrow" aria-hidden="true">→</span><span class="new">Not tonight</span></li>
+          <li class="reveal" style="--delay:500ms"><span class="old">Your streak ended</span><span class="arrow" aria-hidden="true">→</span><span class="new">Your tree is resting</span></li>
+          <li class="reveal" style="--delay:650ms"><span class="old">You fell behind</span><span class="arrow" aria-hidden="true">→</span><span class="new">Your tree is ready when you are</span></li>
         </ul>
       </div>
     </div>
@@ -178,16 +184,18 @@
   <section class="section" aria-label="The idea behind Wird">
     <div class="wrap idea">
       <div class="idea__art">
-        <svg class="tree-art" data-grow viewBox="0 0 260 330" role="img" aria-labelledby="idea-art-title">
-          <title id="idea-art-title">A tree with a gold trunk standing for prayer, and green roots standing for daily habits.</title>
+        <svg class="tree-art season" data-grow viewBox="0 0 260 330" role="img" aria-labelledby="idea-art-title">
+          <title id="idea-art-title">A tree with a gold trunk standing for prayer, and green roots standing for daily habits. Its leaves dry on quiet days and lift again when a drop of water reaches the soil.</title>
           <path class="ground" d="M20 196 Q130 188 240 196" stroke-width="1" fill="none"/>
           <path class="trunk draw" d="M130 196 C130 160 126 130 132 98 C135 80 130 66 130 50" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path class="season-drop" d="M130 6 C126 13 124 17 124 20.5 a6 6 0 0 0 12 0 C136 17 134 13 130 6z" fill="var(--water)"/>
+          <ellipse class="season-ripple" cx="130" cy="196" rx="18" ry="4" fill="none" stroke="var(--water)" stroke-width="1"/>
           <g class="leaves">
-            <path class="unfold" style="--delay:700ms;--origin:right bottom" d="M131 140 C118 136 106 130 96 118 C110 114 124 124 131 140z"/>
-            <path class="unfold" style="--delay:850ms;--origin:left bottom" d="M132 124 C144 120 156 112 164 100 C150 96 138 108 132 124z"/>
-            <path class="unfold" style="--delay:1000ms;--origin:right bottom" d="M131 100 C121 96 112 90 105 80 C116 77 126 86 131 100z"/>
-            <path class="unfold" style="--delay:1150ms;--origin:left bottom" d="M132 86 C141 82 150 76 156 66 C145 64 136 72 132 86z"/>
-            <path class="unfold" style="--delay:1300ms;--origin:center bottom" d="M130 56 C125 50 125 43 130 34 C135 43 135 50 130 56z"/>
+            <path class="unfold is-left" style="--delay:700ms;--origin:right bottom;--i:4" d="M131 140 C118 136 106 130 96 118 C110 114 124 124 131 140z"/>
+            <path class="unfold" style="--delay:850ms;--origin:left bottom;--i:3" d="M132 124 C144 120 156 112 164 100 C150 96 138 108 132 124z"/>
+            <path class="unfold is-left" style="--delay:1000ms;--origin:right bottom;--i:2" d="M131 100 C121 96 112 90 105 80 C116 77 126 86 131 100z"/>
+            <path class="unfold" style="--delay:1150ms;--origin:left bottom;--i:1" d="M132 86 C141 82 150 76 156 66 C145 64 136 72 132 86z"/>
+            <path class="unfold" style="--delay:1300ms;--origin:center bottom;--i:0;--droop:0deg" d="M130 56 C125 50 125 43 130 34 C135 43 135 50 130 56z"/>
           </g>
           <g class="roots-line" fill="none" stroke-width="1.8" stroke-linecap="round">
             <path class="draw" style="--delay:1500ms" d="M130 198 C122 226 104 240 86 262"/>
@@ -214,7 +222,7 @@
         <h2 id="benefits-title" class="title">Everything a day of practice needs. Nothing it doesn’t.</h2>
       </div>
       <div class="benefits">
-        <article class="benefit card reveal">
+        <article class="benefit card reveal lift">
           <div class="benefit__show" aria-hidden="true">
             <div style="width:100%">
               <p style="font-size:1rem">Asr at 3:42 PM</p>
@@ -224,14 +232,14 @@
           <h3 class="heading">Prayer at a glance</h3>
           <p>See the next prayer and log each one with a single tap. Reminders arrive gently, and a passed prayer simply reads Make up.</p>
         </article>
-        <article class="benefit card reveal" style="--delay:100ms">
+        <article class="benefit card reveal lift" style="--delay:100ms">
           <div class="benefit__show" aria-hidden="true" style="justify-content:center">
-            <p class="quran" style="font-size:1.5rem;line-height:1.8">لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا</p>
+            <p class="quran follow" style="font-size:1.5rem;line-height:1.8"><span style="--i:0">لَا</span> <span style="--i:1">يُكَلِّفُ</span> <span style="--i:2">ٱللَّهُ</span> <span style="--i:3">نَفْسًا</span> <span style="--i:4">إِلَّا</span> <span style="--i:5">وُسْعَهَا</span></p>
           </div>
           <h3 class="heading">The Quran, read and heard</h3>
           <p>Read the Uthmani text with a translation, follow a reciter verse by verse, and recite back to see which words to review. Your voice is checked on your phone and never uploaded.</p>
         </article>
-        <article class="benefit card reveal">
+        <article class="benefit card reveal lift">
           <div class="benefit__show" aria-hidden="true">
             <div style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
               <p class="roots__name" style="margin:0">Morning adhkar</p>
@@ -241,7 +249,7 @@
           <h3 class="heading">One next step</h3>
           <p>Choose a single root to start, like reading one page or a short dhikr. Wird shows only what comes next, so you never open it to a wall of tasks.</p>
         </article>
-        <article class="benefit card reveal" style="--delay:100ms">
+        <article class="benefit card reveal lift" style="--delay:100ms">
           <div class="benefit__show" aria-hidden="true" style="gap:16px">
             <svg width="40" height="40" viewBox="0 0 200 200"><path class="breathe" d="M118 58a42 42 0 1 0 30 70a34 34 0 1 1 -30 -70z" fill="var(--gold-fill)"/></svg>
             <p style="font-family:var(--font-display);font-size:1.125rem">Your tree is resting.</p>

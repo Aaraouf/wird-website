@@ -38,9 +38,26 @@ Then open http://localhost:4173/ and http://localhost:4173/start/.
 - **Privacy (5.1.1).** A privacy link on every page. Account deletion steps on the Support and Privacy pages.
 - **HIG foundations.** The page follows the system light/dark setting with no theme switch (`dark-mode.md`). Every text pair is 4.5:1 or better in both appearances (`accessibility.md`). Touch targets are 44 px or more. Motion is optional and fully disabled under Reduce Motion (`motion.md`). Translucency is used only on the floating navigation bar and turns solid under Reduce Transparency (`materials.md`). Each colour has one meaning: gold for prayer, sage for growth (`color.md`).
 
+## Motion
+
+Every animation has a job, and all of it follows the app's motion rules (`docs/DESIGN-SYSTEM.md › Motion`): entrances fade up 14px over 800ms, repeating motion breathes at 4.5s, nothing bounces. Only `transform`, `opacity` and SVG paint are animated. Scroll-linked motion uses CSS scroll-driven animations, so there are no scroll listeners; browsers without them get the finished, static state.
+
+| Where | What moves | What it explains |
+| --- | --- | --- |
+| Every page | A short fade between pages (View Transitions), a 2px reading hairline at the top, a nav bar that gains depth once content passes beneath it | Continuity; the app's growth line; the floating layer |
+| Today screen (both pages) | Prayer dots fill one by one, Begin is pressed, a drop falls to the soil, the leaves lift top-down 90ms apart, the growth line extends, the roots card says "A drop reached your tree" | How a day in Wird feeds the tree |
+| Rhythm screen (product) | The day draws from Fajr to now, the sun travels the arc, prayers fill as it passes | The sun arc on Rhythm |
+| The living tree (product) | Scrolling grows one tree from Seed to Ancient through nine stages, with the stage chips and a line of copy following | The nine stages |
+| The idea (landing) | Every 14s the leaves dry and droop, a drop reaches the soil, and they lift again from the top down | "Waits when you can't"; the tree never dies |
+| Quran (both pages) | Words light in turn, 500ms each, then rest | Follow-along under a reciter |
+| Hero (product) | The three screens drift at different speeds as the page starts to scroll | Depth, only on wide screens |
+
+Reduce Motion turns all of it off and shows end states, including the page fade. The `.season`, `.moment`, `.arc` and `.grow` blocks in `assets/wird.css` hold the timelines.
+
 ## Verified
 
 - axe-core 4.10.2: 0 violations on all six pages, in light and in dark.
 - No horizontal scrolling at 320, 375 and 768 px wide.
 - Keyboard: a skip link and visible focus on every control.
+- Scroll-driven tree checked at 5%, 40%, 70% and 99% of its scroll range on desktop and on a 375px phone, where the sticky stage fits the screen.
 - tastemaker's anti-slop scan: clean, apart from one false positive (the `100vh` fallback line before `100dvh`).

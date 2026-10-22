@@ -30,7 +30,10 @@
   --rest-neutral: #d6cfc2;
   --amber: #8f5410;
   --amber-soft: #f6e4c8;
+  --leaf-dry: #a08a55;
+  --blossom: #e9d3cc;
   --shadow-card: 0 0 0 0.5px #1b263814, 0 1px 3px #1b26380d;
+  --shadow-lift: 0 0 0 0.5px #1b263814, 0 14px 28px -18px #1b263840;
   --glass: #fbf7f0b8;
   --glass-edge: #1b26381a;
 
@@ -79,7 +82,10 @@
     --rest-neutral: #333b47;
     --amber: #e3a857;
     --amber-soft: #3a2e1c;
+    --leaf-dry: #bca676;
+    --blossom: #eadbd3;
     --shadow-card: none;
+    --shadow-lift: 0 0 0 0.5px #ffffff1f;
     --glass: #161c26b8;
     --glass-edge: #ffffff14;
   }
@@ -93,6 +99,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-padding-top: 96px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -347,6 +354,20 @@ a:hover { text-decoration-thickness: 2px; }
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   backdrop-filter: blur(20px) saturate(160%);
   box-shadow: inset 0 0 0 0.5px var(--glass-edge);
+  view-transition-name: nav;
+}
+
+/* Scroll edge: the bar reads as floating only once content passes beneath it. */
+@supports (animation-timeline: scroll()) {
+  .nav__bar {
+    animation: nav-edge linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 160px;
+  }
+}
+
+@keyframes nav-edge {
+  to { box-shadow: inset 0 0 0 0.5px var(--glass-edge), 0 10px 28px -14px #0f141c59; }
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -587,7 +608,44 @@ a:hover { text-decoration-thickness: 2px; }
 .tree-art .roots-line { stroke: var(--leaf); }
 .tree-art .soil { fill: var(--soil); }
 
-/* Motion. Calm motion settles, it never bounces (docs/DESIGN-SYSTEM.md › Motion). */
+/* ------------------------------------------------------------------------
+   Motion. Calm motion settles, it never bounces (docs/DESIGN-SYSTEM.md › Motion).
+   Entrances fade up 14px over 800ms; repeating motion breathes at 4.5s;
+   state changes take 250 to 600ms. Only transform, opacity and SVG paint
+   are animated, scroll-linked motion is CSS scroll-driven (no scroll
+   listeners), and Reduce Motion shows every end state at once.
+   ------------------------------------------------------------------------ */
+
+/* Page to page: a short settle instead of a hard cut. The nav bar keeps its place. */
+
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) { animation: 240ms var(--ease-settle) both vt-out; }
+::view-transition-new(root) { animation: 420ms var(--ease-settle) both vt-in; }
+
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+
+/* Reading hairline: the app's growth line, here showing how far down the page you are. */
+
+.progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--leaf);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 60;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .progress { animation: progress linear both; animation-timeline: scroll(root); }
+}
+
+@keyframes progress { to { transform: scaleX(1); } }
+
+/* Entrances */
 
 .reveal {
   opacity: 0;
@@ -596,18 +654,39 @@ a:hover { text-decoration-thickness: 2px; }
   transition-delay: var(--delay, 0ms);
 }
 
-.reveal.is-in { opacity: 1; transform: none; }
-
-.no-js .reveal { opacity: 1; transform: none; }
-
-.tagline .word {
-  color: color-mix(in srgb, var(--ink) 28%, transparent);
-  transition: color 700ms var(--ease-sheet);
+.reveal--blur {
+  filter: blur(10px);
+  transition: opacity 800ms var(--ease-settle), transform 800ms var(--ease-settle), filter 800ms var(--ease-settle);
+  transition-delay: var(--delay, 0ms);
 }
 
-.tagline .word.is-lit { color: var(--ink); }
+.reveal.is-in { opacity: 1; transform: none; filter: none; }
+
+.no-js .reveal { opacity: 1; transform: none; filter: none; }
+
+/* Pointer feedback. Cards lift a touch; the reveal transition hands over once the card is in. */
+
+@media (hover: hover) and (pointer: fine) {
+  .lift.is-in, .lift .card, .lift.card {
+    transition: transform 400ms var(--ease-settle), box-shadow 400ms var(--ease-settle);
+  }
+  .lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+}
+
+/* Tagline: words light in reading order as they cross a line on screen. */
+
+.tagline .word {
+  display: inline-block;
+  color: color-mix(in srgb, var(--ink) 28%, transparent);
+  transform: translateY(4px);
+  transition: color 700ms var(--ease-sheet), transform 700ms var(--ease-sheet);
+}
+
+.tagline .word.is-lit { color: var(--ink); transform: none; }
 .tagline .word.is-gold.is-lit { color: var(--gold); }
 .tagline .word.is-leaf.is-lit { color: var(--leaf); }
+
+/* Drawings: strokes draw, leaves unfold, once, when first seen. */
 
 .draw {
   stroke-dasharray: var(--len, 300);
@@ -636,16 +715,289 @@ a:hover { text-decoration-thickness: 2px; }
   50% { transform: scale(1.06); opacity: 1; }
 }
 
+/* The landing tree's slow season: leaves dry and droop, a drop reaches the soil, and the
+   leaves lift again from the top down (90ms apart, as in the app). One 14s cycle, after the
+   drawing has finished. It is the sentence "waits when you can't", drawn. */
+
+.season .leaves .unfold { --droop: -9deg; }
+.season .leaves .unfold.is-left { --droop: 9deg; }
+
+.is-grown.season .leaves .unfold {
+  animation: season-leaf 14s var(--ease-settle) calc(4000ms + var(--i, 0) * 90ms) infinite;
+}
+
+@keyframes season-leaf {
+  0%, 24% { fill: var(--leaf); transform: none; }
+  44%, 58% { fill: var(--leaf-dry); transform: translateY(2px) rotate(var(--droop)); }
+  66%, 100% { fill: var(--leaf); transform: none; }
+}
+
+.season .season-drop, .season .season-ripple { opacity: 0; }
+
+.is-grown.season .season-drop {
+  animation: season-drop 14s linear 4000ms infinite;
+}
+
+.is-grown.season .season-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: season-ripple 14s linear 4000ms infinite;
+}
+
+@keyframes season-drop {
+  0%, 54.5% { opacity: 0; transform: translateY(0); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+  55% { opacity: 1; }
+  58.3% { opacity: 1; transform: translateY(176px); }
+  58.6%, 100% { opacity: 0; transform: translateY(176px); }
+}
+
+@keyframes season-ripple {
+  0%, 58.3% { opacity: 0; transform: scale(0.3); animation-timing-function: var(--ease-out); }
+  58.6% { opacity: 0.9; }
+  64% { opacity: 0; transform: scale(1.9, 1.5); }
+  100% { opacity: 0; transform: scale(1.9, 1.5); }
+}
+
+/* The Today screen's moment: prayers log one by one, Begin is pressed, a drop falls to the
+   soil, the tree lifts and the growth line extends, and the roots card says what happened. */
+
+.moment .dots span { position: relative; }
+
+.moment .dots span.is-prayed { background: transparent; box-shadow: inset 0 0 0 1.5px var(--gold-fill); }
+
+.moment .dots span.is-prayed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--gold-fill);
+  transform: scale(0);
+  transition: transform 300ms var(--ease-settle);
+  transition-delay: calc(600ms + var(--i, 0) * 250ms);
+}
+
+.moment.is-in .dots span.is-prayed::after { transform: scale(1); }
+
+.moment .drop, .moment .ripple { opacity: 0; }
+
+.moment.is-in .drop { animation: drop-fall 560ms cubic-bezier(0.5, 0, 0.9, 0.6) 1900ms both; }
+
+.moment.is-in .ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ripple 900ms var(--ease-out) 2420ms both;
+}
+
+@keyframes drop-fall {
+  0% { opacity: 0; transform: translateY(0); }
+  12% { opacity: 1; }
+  94% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(101px); }
+}
+
+@keyframes ripple {
+  0% { opacity: 0.9; transform: scale(0.3); }
+  100% { opacity: 0; transform: scale(1.9, 1.5); }
+}
+
+.moment .leaves path { transform-box: fill-box; transform-origin: bottom center; }
+
+.moment.is-in .leaves path {
+  animation: leaf-lift 700ms var(--ease-settle) calc(2500ms + var(--i, 0) * 90ms) both;
+}
+
+@keyframes leaf-lift {
+  from { transform: translateY(1.5px) scale(0.96); }
+  to { transform: none; }
+}
+
+.moment .growth__fill { transform-origin: 0 50%; transform: scaleX(0.8); }
+
+.moment.is-in .growth__fill { transform: none; transition: transform 800ms var(--ease-settle) 2500ms; }
+
+.moment.is-in .roots__actions .mini-btn--action { animation: press 320ms var(--ease-out) 1700ms both; }
+
+@keyframes press { 50% { transform: scale(0.96); } }
+
+.roots__act { display: grid; margin-top: 12px; }
+.roots__act > * { grid-area: 1 / 1; }
+.roots__act .roots__actions { margin-top: 0; }
+
+.roots__done {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  align-self: center;
+  opacity: 0;
+  filter: blur(4px);
+  color: var(--leaf-text);
+  font-size: 0.9375rem;
+}
+
+.roots__done svg { color: var(--water); }
+
+.moment.is-in .roots__actions { animation: fade-blur-out 450ms var(--ease-settle) 2500ms both; }
+.moment.is-in .roots__done { animation: fade-blur-in 450ms var(--ease-settle) 2560ms both; }
+
+@keyframes fade-blur-out { to { opacity: 0; filter: blur(4px); } }
+@keyframes fade-blur-in { to { opacity: 1; filter: blur(0); } }
+
+/* The Rhythm arc: the day draws from Fajr to now, the sun travels it, prayers fill as it passes. */
+
+.arc .sun {
+  offset-path: path("M16 112 Q171 -28 326 112");
+  offset-distance: 0%;
+  offset-rotate: 0deg;
+  transition: offset-distance 2400ms linear 300ms;
+}
+
+.arc.is-grown .sun { offset-distance: 79%; }
+
+.arc .draw { transition: stroke-dashoffset 2400ms linear 300ms; }
+
+.arc .pd.is-prayed { fill: var(--canvas); transition: fill 300ms ease; transition-delay: var(--delay, 0ms); }
+.arc.is-grown .pd.is-prayed { fill: var(--gold-fill); }
+
+/* Follow along: words light in turn, the way a verse does under a reciter in the app.
+   Six words at 500ms each, then a rest, so the cycle breathes at 4.5s. */
+
+.follow span {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0 3px;
+  margin: 0 -3px;
+  animation: follow 4.5s linear calc(var(--i, 0) * 500ms) infinite;
+}
+
+@keyframes follow {
+  0%, 1% { background-color: transparent; color: var(--ink); }
+  4%, 11% { background-color: color-mix(in srgb, var(--gold-fill) 26%, transparent); color: var(--gold); }
+  15%, 100% { background-color: transparent; color: var(--ink); }
+}
+
+/* Hero screens drift apart a little as the page starts to scroll (wide screens only). */
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1140px) {
+    .stage > figure { animation: drift linear both; animation-timeline: scroll(root); animation-range: 0 120vh; }
+    .stage > figure:nth-child(1), .stage > figure:nth-child(3) { --drift: -32px; }
+    .stage > figure:nth-child(2) { --drift: -72px; }
+  }
+}
+
+@keyframes drift { to { transform: translateY(var(--drift, -40px)); } }
+
+/* The growing tree: a scroll-driven scrub through the nine stages (product page).
+   Default styles are the finished, static tree; the scrub only applies where the browser
+   supports scroll-driven animations and the person has not asked for reduced motion. */
+
+.grow__track { position: relative; }
+
+.grow__stage { display: grid; gap: 32px; align-items: center; }
+
+@media (min-width: 900px) {
+  .grow__stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; }
+}
+
+.grow__art { width: 100%; max-width: 420px; margin-inline: auto; }
+.grow__art svg { width: 100%; height: auto; }
+
+.grow__lines { position: relative; min-height: 3.5rem; }
+.grow__line { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; line-height: 1.75rem; color: var(--ink); }
+.grow__line:not(:last-child) { display: none; }
+
+.sc-draw { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.sc-appear, .sc-fade { transform-box: fill-box; transform-origin: var(--origin, bottom center); }
+.sc-vanish { opacity: 0; }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .grow__track { height: 320svh; view-timeline-name: --tree; view-timeline-axis: block; }
+
+    .grow__stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      align-content: center;
+      padding-top: 72px;
+      padding-bottom: 24px;
+    }
+
+    .grow__line { position: absolute; inset: 0 0 auto 0; opacity: 0; display: block; }
+    .grow__line:not(:last-child) { display: block; }
+
+    .grow__track .sc-draw, .grow__track .sc-appear, .grow__track .sc-fade, .grow__track .sc-vanish,
+    .grow__track .stages li, .grow__track .grow__line {
+      animation-timeline: --tree;
+      animation-range: contain var(--in, 0%) contain var(--out, 100%);
+      animation-timing-function: linear;
+    }
+
+    /* Opacity starts at 0: a round line cap would otherwise show as a dot before the stroke draws. */
+    .grow__track .sc-draw { stroke-dashoffset: 100; opacity: 0; animation-name: sc-draw; animation-fill-mode: forwards; }
+    .grow__track .sc-appear { opacity: 0; animation-name: sc-appear; animation-fill-mode: forwards; }
+    .grow__track .sc-fade { opacity: 0; animation-name: sc-fade; animation-fill-mode: forwards; }
+    .grow__track .sc-vanish { opacity: 1; animation-name: sc-vanish; animation-fill-mode: forwards; }
+
+    .grow__track .stages li, .grow__track .stages li.is-here {
+      background: var(--tint); color: var(--ink-secondary); box-shadow: none; font-weight: 400;
+      animation-name: chip-on; animation-fill-mode: none;
+    }
+
+    .grow__track .grow__line { animation-name: line-show; animation-fill-mode: none; }
+    .grow__track .grow__line:last-child { animation-name: line-show-hold; animation-fill-mode: forwards; }
+  }
+}
+
+@keyframes sc-draw {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  4% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes sc-appear { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: none; } }
+@keyframes sc-fade { to { opacity: 1; } }
+@keyframes sc-vanish { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(0.4); } }
+@keyframes chip-on { from, to { background: var(--surface); color: var(--leaf-text); box-shadow: inset 0 0 0 1px var(--leaf); } }
+@keyframes line-show {
+  0% { opacity: 0; transform: translateY(8px); }
+  14%, 86% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+@keyframes line-show-hold {
+  0% { opacity: 0; transform: translateY(8px); }
+  14%, 100% { opacity: 1; transform: none; }
+}
+
+/* Reduce Motion: every end state, at once. */
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .unfold { opacity: 1; transform: none; transition: none; }
+  .reveal, .unfold { opacity: 1; transform: none; filter: none; transition: none; }
   .draw { stroke-dashoffset: 0; transition: none; }
-  .tagline .word { color: var(--ink); transition: none; }
+  .tagline .word { color: var(--ink); transform: none; transition: none; }
   .tagline .word.is-gold { color: var(--gold); }
   .tagline .word.is-leaf { color: var(--leaf); }
-  .breathe { animation: none; }
-  .btn, .store__badge, .skip-link { transition: none; }
+  .breathe, .follow span, .season .leaves .unfold, .season .season-drop, .season .season-ripple { animation: none; }
+  .follow span:nth-child(3) { background-color: color-mix(in srgb, var(--gold-fill) 26%, transparent); color: var(--gold); }
+  .moment.is-in .drop, .moment.is-in .ripple, .moment.is-in .leaves path, .moment.is-in .mini-btn--action,
+  .moment.is-in .roots__actions, .moment.is-in .roots__done { animation: none; }
+  .moment .dots span.is-prayed::after { transform: scale(1); transition: none; }
+  .moment .growth__fill { transform: none; transition: none; }
+  .arc .sun { offset-distance: 79%; transition: none; }
+  .arc .draw { transition: none; }
+  .arc .pd.is-prayed { fill: var(--gold-fill); transition: none; }
+  .lift:hover { transform: none; }
+  .btn, .store__badge, .skip-link, .nav__bar, .text-link svg { transition: none; animation: none; }
+  .progress { animation: none; transform: scaleX(0); }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Without JavaScript nothing waits for an observer: screens show their resting state. */
+
+.no-js .moment .dots span.is-prayed::after { transform: scale(1); transition: none; }
+.no-js .moment .growth__fill { transform: none; }
+.no-js .arc .sun { offset-distance: 79%; }
+.no-js .arc .pd.is-prayed { fill: var(--gold-fill); }
 
 /* Footer */
 
@@ -730,8 +1082,20 @@ a:hover { text-decoration-thickness: 2px; }
 
 .faq details > div p + p { margin-top: 12px; }
 
+/* Answers settle open instead of snapping, where the browser can animate to auto height. */
+.faq details { interpolate-size: allow-keywords; }
+
+.faq details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition: block-size 350ms var(--ease-settle), content-visibility 350ms allow-discrete;
+}
+
+.faq details[open]::details-content { block-size: auto; }
+
 @media (prefers-reduced-motion: reduce) {
   .faq summary svg { transition: none; }
+  .faq details::details-content { transition: none; }
 }
 
 /* Long-form text pages (privacy, support, terms) */
