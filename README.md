@@ -47,17 +47,20 @@ Every animation has a job, and all of it follows the app's motion rules (`docs/D
 | Every page | A short fade between pages (View Transitions), a 2px reading hairline at the top, a nav bar that gains depth once content passes beneath it | Continuity; the app's growth line; the floating layer |
 | Today screen (both pages) | Prayer dots fill one by one, Begin is pressed, a drop falls to the soil, the leaves lift top-down 90ms apart, the growth line extends, the roots card says "A drop reached your tree" | How a day in Wird feeds the tree |
 | Rhythm screen (product) | The day draws from Fajr to now, the sun travels the arc, prayers fill as it passes | The sun arc on Rhythm |
-| The living tree (product) | Scrolling grows one tree from Seed to Ancient through nine stages, with the stage chips and a line of copy following | The nine stages |
+| The living tree (product) | Scrolling grows one tree from Seed to Sapling, the first four of nine stages, with the stage chips and a line of copy following. The other five are left for the app | The idea of stages, with some mystery kept |
 | The idea (landing) | Every 14s the leaves dry and droop, a drop reaches the soil, and they lift again from the top down | "Waits when you can't"; the tree never dies |
 | Quran (both pages) | Words light in turn, 500ms each, then rest | Follow-along under a reciter |
 | Hero (product) | The three screens drift at different speeds as the page starts to scroll | Depth, only on wide screens |
 
 Reduce Motion turns all of it off and shows end states, including the page fade. The `.season`, `.moment`, `.arc` and `.grow` blocks in `assets/wird.css` hold the timelines.
 
+Looping animations (the drying leaves, the follow-along words, the breathing seed) carry `data-pause`; an observer in `wird.js` pauses them while they are off screen, so a page at rest runs no animation the visitor cannot see.
+
 ## Verified
 
 - axe-core 4.10.2: 0 violations on all six pages, in light and in dark.
 - No horizontal scrolling at 320, 375 and 768 px wide.
 - Keyboard: a skip link and visible focus on every control.
-- Scroll-driven tree checked at 5%, 40%, 70% and 99% of its scroll range on desktop and on a 375px phone, where the sticky stage fits the screen.
+- Scroll-driven tree checked at 5%, 50% and 99% of its scroll range on desktop and on a 375px phone, where the sticky stage fits the screen.
+- Off-screen pausing measured with `document.getAnimations()`: at the top of the landing page 0 of 7 looping animations run; at the tree section only the 7 on screen run.
 - tastemaker's anti-slop scan: clean, apart from one false positive (the `100vh` fallback line before `100dvh`).

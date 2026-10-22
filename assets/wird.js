@@ -137,6 +137,22 @@ function setUpTagline() {
   words.forEach((w) => observer.observe(w));
 }
 
+// Pause looping animations (the drying leaves, the follow-along words, the breathing seed)
+// while they are off screen. One observer, toggling one class; CSS does the pausing.
+function setUpPause() {
+  const loops = document.querySelectorAll("[data-pause]");
+  if (!loops.length || !("IntersectionObserver" in window)) return;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-offscreen", !entry.isIntersecting);
+      });
+    },
+    { threshold: 0.01 }
+  );
+  loops.forEach((el) => observer.observe(el));
+}
+
 function setYear() {
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = String(new Date().getFullYear());
@@ -148,4 +164,5 @@ setUpContact();
 setUpReveals();
 setUpTrees();
 setUpTagline();
+setUpPause();
 setYear();

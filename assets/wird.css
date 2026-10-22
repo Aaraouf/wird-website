@@ -142,7 +142,7 @@ a:hover { text-decoration-thickness: 2px; }
 .skip-link {
   position: absolute;
   left: 16px;
-  top: -64px;
+  top: 16px;
   z-index: 100;
   padding: 12px 16px;
   border-radius: var(--radius-md);
@@ -150,10 +150,11 @@ a:hover { text-decoration-thickness: 2px; }
   color: var(--on-action);
   font-weight: 600;
   text-decoration: none;
-  transition: top 200ms var(--ease-out);
+  transform: translateY(-96px);
+  transition: transform 200ms var(--ease-out);
 }
 
-.skip-link:focus { top: 16px; }
+.skip-link:focus { transform: none; }
 
 .visually-hidden {
   position: absolute !important;
@@ -668,7 +669,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 @media (hover: hover) and (pointer: fine) {
   .lift.is-in, .lift .card, .lift.card {
-    transition: transform 400ms var(--ease-settle), box-shadow 400ms var(--ease-settle);
+    transition: transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out);
   }
   .lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
 }
@@ -912,7 +913,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .grow__track { height: 320svh; view-timeline-name: --tree; view-timeline-axis: block; }
+    .grow__track { height: 240svh; view-timeline-name: --tree; view-timeline-axis: block; }
 
     .grow__stage {
       position: sticky;
@@ -943,6 +944,7 @@ a:hover { text-decoration-thickness: 2px; }
       background: var(--tint); color: var(--ink-secondary); box-shadow: none; font-weight: 400;
       animation-name: chip-on; animation-fill-mode: none;
     }
+    .grow__track .stages li.stages__more { animation: none; background: transparent; box-shadow: inset 0 0 0 1px var(--hairline); color: var(--ink-tertiary); }
 
     .grow__track .grow__line { animation-name: line-show; animation-fill-mode: none; }
     .grow__track .grow__line:last-child { animation-name: line-show-hold; animation-fill-mode: forwards; }
@@ -967,6 +969,11 @@ a:hover { text-decoration-thickness: 2px; }
   0% { opacity: 0; transform: translateY(8px); }
   14%, 100% { opacity: 1; transform: none; }
 }
+
+/* Looping motion pauses while its element is off screen (toggled by an observer in wird.js),
+   so the page spends nothing on leaves drying or words lighting that nobody can see. */
+
+.is-offscreen, .is-offscreen * { animation-play-state: paused !important; }
 
 /* Reduce Motion: every end state, at once. */
 
@@ -1088,7 +1095,7 @@ a:hover { text-decoration-thickness: 2px; }
 .faq details::details-content {
   block-size: 0;
   overflow: clip;
-  transition: block-size 350ms var(--ease-settle), content-visibility 350ms allow-discrete;
+  transition: block-size 300ms var(--ease-out), content-visibility 300ms allow-discrete;
 }
 
 .faq details[open]::details-content { block-size: auto; }
