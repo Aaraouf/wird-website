@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wird · A calm daily companion for prayer and the Quran</title>
+<meta name="description" content="Wird helps you keep the five prayers, the Quran and small daily habits, gently. A living tree grows when you come back and rests when you can’t. Free for iPhone and iPad.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f2ebe0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f141c" media="(prefers-color-scheme: dark)">
+<!-- Once Wird is live, add Apple's Smart App Banner with the real App Store ID:
+<meta name="apple-itunes-app" content="app-id=0000000000">
+-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wird">
+<meta property="og:title" content="Wird · A calm daily companion for prayer and the Quran">
+<meta property="og:description" content="Prayer is the trunk. Your habits are the roots. The tree grows when you come back, and waits when you can’t.">
+<meta property="og:image" content="assets/og.png">
+<meta property="og:image:alt" content="The Wird app icon, a gold stem with two sage leaves, beside the words Come back to prayer.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Jost:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/wird.css">
+<style>
+  .hero { padding-block: 48px 0; text-align: center; }
+  .hero__copy { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  .hero h1 { max-width: 760px; }
+  .hero .lede { max-width: 600px; }
+  .hero .store { justify-content: center; }
+  @media (min-width: 768px) { .hero { padding-block: 80px 0; } }
+
+  /* Three screens: a swipeable strip on phones, a staged row on wide screens */
+  .stage {
+    display: flex;
+    gap: 16px;
+    margin-top: 48px;
+    padding: 8px var(--gutter) 48px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    text-align: left;
+  }
+  .stage::-webkit-scrollbar { display: none; }
+  .stage > figure { flex: 0 0 min(320px, 82vw); scroll-snap-align: center; }
+  .stage figcaption { margin-top: 16px; text-align: center; }
+  @media (max-width: 1139px) { .stage > figure:nth-child(2) { order: -1; } }
+  @media (min-width: 1140px) {
+    .stage { overflow: visible; justify-content: center; align-items: flex-start; gap: 32px; padding-bottom: 96px; }
+    .stage > figure { flex: 0 0 340px; }
+    .stage > figure:nth-child(odd) { margin-top: 64px; }
+  }
+
+  .screen h2.screen__greeting { font-size: 1.75rem; }
+
+  .arc text { font: 500 11px var(--font-text); fill: var(--ink-secondary); }
+
+  .ayah-card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .ayah-card .quran { font-size: 1.375rem; line-height: 2.4rem; text-align: right; }
+  .ayah-card .translation { font-family: var(--font-display); font-size: 1rem; line-height: 1.5rem; }
+
+  .prayer-list { list-style: none; padding: 0; background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
+  .prayer-list li { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 0.9375rem; }
+  .prayer-list li + li { border-top: 0.5px solid var(--hairline); }
+  .prayer-list .t { color: var(--ink-secondary); margin-left: 8px; }
+  .prayer-list .s { font-size: 0.8125rem; color: var(--ink-secondary); }
+  .prayer-list .s.is-gold { color: var(--gold); }
+
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+  .week .col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .week i { width: 8px; height: 8px; border-radius: 999px; box-shadow: inset 0 0 0 1.2px var(--gold-fill); display: block; }
+  .week i.on { background: var(--gold-fill); box-shadow: none; }
+  .week b { width: 16px; height: 3px; border-radius: 2px; background: var(--rest-neutral); display: block; margin-top: 4px; }
+  .week b.on { background: var(--leaf); }
+  .week span { font-size: 0.6875rem; color: var(--ink-secondary); }
+
+  .split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center; }
+  @media (min-width: 900px) { .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; } .split--flip > :first-child { order: 2; } }
+  .split__copy { display: flex; flex-direction: column; gap: 16px; }
+  .split__copy ul { padding-left: 20px; color: var(--ink-secondary); }
+  .split__copy li + li { margin-top: 8px; }
+
+  .stages { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+  .stages li { padding: 6px 12px; border-radius: 999px; background: var(--tint); font-size: 0.875rem; color: var(--ink-secondary); }
+  .stages li.is-here { background: var(--surface); color: var(--leaf-text); font-weight: 600; box-shadow: inset 0 0 0 1px var(--leaf); }
+
+  .tabs { display: grid; gap: 16px; margin-top: 48px; }
+  @media (min-width: 768px) { .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .tab-card { padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .tab-card p { color: var(--ink-secondary); }
+  .tab-card__show { margin-top: 4px; padding: 16px; border-radius: var(--radius-sm); background: var(--canvas); min-height: 120px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .tab-card__icon { color: var(--ink); }
+
+  .modes { display: inline-flex; padding: 3px; gap: 2px; border-radius: 10px; background: var(--surface-raised); font-size: 0.8125rem; font-weight: 600; }
+  .modes span { padding: 6px 14px; border-radius: 8px; color: var(--ink-secondary); }
+  .modes span.is-on { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-card); }
+  .word-review { background: var(--amber-soft); color: var(--amber); border-radius: 4px; padding: 0 2px; }
+
+  .widgets { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; align-items: flex-start; }
+  .widget { background: var(--surface); border-radius: 22px; box-shadow: var(--shadow-card), 0 16px 32px -20px #0f141c4d; padding: 16px; display: flex; flex-direction: column; }
+  .widget--small { width: 158px; height: 158px; justify-content: space-between; }
+  .widgets > div { min-width: 0; max-width: 100%; }
+  .widget--medium { width: 338px; max-width: 100%; min-height: 158px; gap: 4px; justify-content: center; }
+  .widget .quran { font-size: 1.25rem; line-height: 2rem; text-align: right; }
+  .widget-label { margin-top: 12px; text-align: center; }
+
+  .support-tiers { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 8px; }
+  .support-tiers li { list-style: none; padding: 16px 12px; text-align: center; border-radius: var(--radius-sm); background: var(--canvas); }
+  .support-tiers strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: 1.125rem; }
+  .support-tiers span { font-size: 0.8125rem; color: var(--ink-secondary); }
+
+  .download { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  .download .store { justify-content: center; }
+</style>
+<script src="assets/wird.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <nav class="nav__bar" aria-label="Main">
+    <a class="brand" href="./" aria-current="page">
+      <img class="app-icon" src="assets/icon.svg" width="32" height="32" alt="">
+      <span class="brand__word">Wird</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="privacy/">Privacy</a></li>
+      <li><a href="support/">Support</a></li>
+      <li class="nav__cta"><a class="btn btn--tint btn--small" href="#download" style="color:var(--ink)">Get Wird</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__copy">
+      <p class="label">Free for iPhone and iPad</p>
+      <h1 id="hero-title" class="display">A calm daily companion<br> for prayer and the Quran.</h1>
+      <p class="lede">Keep the five prayers, the Quran and the small habits around them, gently. Your tree grows when you come back, and waits when you can’t.</p>
+      <div class="store" data-store>
+        <span class="store__soon">Coming soon to the App Store</span>
+      </div>
+    </div>
+
+    <div class="stage" role="group" aria-label="Three screens from Wird">
+      <figure class="reveal">
+        <div class="screen" aria-hidden="true">
+          <div>
+            <p class="screen__greeting">Rhythm</p>
+            <p class="meta" style="font-size:0.875rem">Return to rhythm, not perfection.</p>
+          </div>
+          <svg class="arc" viewBox="0 0 342 140" width="100%">
+            <path d="M16 112 Q171 -28 326 112" fill="none" stroke="var(--hairline)" stroke-width="1.5" stroke-dasharray="2 5" stroke-linecap="round"/>
+            <path d="M16 112 L28.4 101.2 L40.8 91.4 L53.2 82.4 L65.6 74.4 L78.0 67.2 L90.4 60.9 L102.8 55.6 L115.2 51.1 L127.6 47.5 L140.0 44.8 L152.4 43.0 L164.8 42.1 L177.2 42.1 L189.6 43.0 L202.0 44.8 L214.4 47.5 L226.8 51.1 L239.2 55.6 L251.6 60.9 L264.0 67.2" fill="none" stroke="var(--gold-fill)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+            <line x1="10" y1="112" x2="332" y2="112" stroke="var(--hairline)"/>
+            <circle cx="40.8" cy="91.4" r="6" fill="var(--gold-fill)"/>
+            <circle cx="146.2" cy="43.8" r="6" fill="var(--gold-fill)"/>
+            <circle cx="202" cy="44.8" r="6" fill="var(--canvas)" stroke="var(--gold-fill)" stroke-width="1.5"/>
+            <circle cx="245.4" cy="58.1" r="6" fill="var(--gold-fill)"/>
+            <circle cx="285.7" cy="80.3" r="6" fill="var(--canvas)" stroke="var(--gold-fill)" stroke-width="1.5"/>
+            <circle cx="264" cy="67.2" r="4" fill="var(--water)"/>
+            <text x="40.8" y="132" text-anchor="middle">Fajr</text>
+            <text x="146.2" y="132" text-anchor="middle">Dhuhr</text>
+            <text x="198" y="132" text-anchor="middle">Asr</text>
+            <text x="245.4" y="132" text-anchor="middle">Maghrib</text>
+            <text x="295" y="132" text-anchor="middle">Isha</text>
+          </svg>
+          <div class="roots">
+            <div class="roots__next">
+              <p class="meta">Now · after Maghrib</p>
+              <p class="roots__name">33 dhikr</p>
+              <div class="roots__actions"><span class="mini-btn mini-btn--action">Begin</span><span class="mini-btn mini-btn--plain">Not tonight</span></div>
+            </div>
+          </div>
+          <div class="ayah-card">
+            <p class="quran">لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا</p>
+            <p class="translation">Allah does not burden a soul beyond what it can bear.</p>
+            <p class="meta">Al-Baqarah 2:286 · <span style="color:var(--accent-text);font-weight:600">Read in context</span></p>
+          </div>
+        </div>
+        <figcaption class="label">Rhythm, for doing</figcaption>
+      </figure>
+
+      <figure class="reveal" style="--delay:120ms">
+        <div class="screen" aria-hidden="true">
+          <div>
+            <p class="meta">Tuesday · 9 Jumada I</p>
+            <p class="screen__greeting">Salaam, Yusuf</p>
+          </div>
+          <div class="tree-card">
+            <div class="tree-card__row"><span class="secondary">Your tree</span><span class="label--leaf">Seedling</span></div>
+            <svg class="tree-art" width="150" height="150" viewBox="0 0 160 160">
+              <path class="ground" d="M24 136 L136 136" stroke-width="1"/>
+              <path class="stem" d="M80 136 C80 112 78 98 81 76 C83 62 80 54 80 44" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <g class="leaves">
+                <path d="M80 108 C70 104 62 100 54 92 C64 89 74 96 80 108z"/>
+                <path d="M81 96 C90 92 98 88 106 80 C96 77 86 84 81 96z"/>
+                <path d="M81 80 C73 76 67 72 61 66 C69 63 77 69 81 80z"/>
+                <path d="M81 70 C88 66 94 62 99 56 C92 54 85 59 81 70z"/>
+                <path d="M80 50 C76 46 75 41 80 34 C85 41 84 46 80 50z"/>
+              </g>
+            </svg>
+            <p class="tree-card__line">You came to the water today.</p>
+            <div class="growth"><span></span></div>
+          </div>
+          <div class="prayer-bar">
+            <div>
+              <p>Isha in 1h 12m</p>
+              <div class="dots"><span class="is-prayed"></span><span class="is-prayed"></span><span></span><span class="is-prayed"></span><span></span></div>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-secondary)"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="roots">
+            <div class="roots__next">
+              <p class="meta">Next</p>
+              <p class="roots__name">Read one page</p>
+              <div class="roots__actions"><span class="mini-btn mini-btn--action">Begin</span><span class="mini-btn mini-btn--plain">Not tonight</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="label">Today, for glancing</figcaption>
+      </figure>
+
+      <figure class="reveal" style="--delay:240ms">
+        <div class="screen" aria-hidden="true">
+          <div>
+            <p class="screen__greeting">Journey</p>
+            <p class="meta" style="font-size:0.875rem">How you’re growing, over time.</p>
+          </div>
+          <div class="card" style="padding:16px;display:flex;gap:12px;align-items:center">
+            <svg class="tree-art" width="56" height="56" viewBox="40 30 80 110"><path class="stem" d="M80 136 C80 112 78 98 81 76 C83 62 80 54 80 44" stroke-width="3" fill="none" stroke-linecap="round"/><g class="leaves"><path d="M80 108 C70 104 62 100 54 92 C64 89 74 96 80 108z"/><path d="M81 96 C90 92 98 88 106 80 C96 77 86 84 81 96z"/><path d="M81 80 C73 76 67 72 61 66 C69 63 77 69 81 80z"/><path d="M80 50 C76 46 75 41 80 34 C85 41 84 46 80 50z"/></g></svg>
+            <div>
+              <p class="meta" style="color:var(--leaf-text)">Seedling · Flourishing</p>
+              <p class="roots__name" style="font-size:1.125rem">Growing toward Sapling</p>
+              <p class="meta">About 4 more days of showing up</p>
+            </div>
+          </div>
+          <div class="card" style="padding:16px">
+            <p class="meta" style="margin-bottom:12px">This week</p>
+            <div class="week">
+              <div class="col"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><b class="on"></b><span>M</span></div>
+              <div class="col"><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><b class="on"></b><span>T</span></div>
+              <div class="col"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><b></b><span>W</span></div>
+              <div class="col"><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><b class="on"></b><span>T</span></div>
+              <div class="col"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><b class="on"></b><span>F</span></div>
+              <div class="col"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><b></b><span>S</span></div>
+              <div class="col"><i></i><i></i><i></i><i></i><i></i><b></b><span>S</span></div>
+            </div>
+          </div>
+          <div class="card" style="padding:16px">
+            <p class="meta">A pattern in your days</p>
+            <p style="font-family:var(--font-display);font-size:1.0625rem;line-height:1.45;margin:4px 0 6px">Fajr comes easier on days you did your evening check‑in.</p>
+            <p class="meta">A tendency, not a cause. Only you see this.</p>
+          </div>
+        </div>
+        <figcaption class="label">Journey, for reflecting</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tree-title" style="background:var(--surface)">
+    <div class="wrap split">
+      <div class="split__copy reveal">
+        <p class="label label--leaf">The living tree</p>
+        <h2 id="tree-title" class="title">Prayer is the trunk.<br> Your habits are the roots.</h2>
+        <p class="lede">Every prayer you log and every root you water sends a drop to your tree. It grows through nine stages over months, and its leaves show how the last few days have felt.</p>
+        <p class="secondary">On quiet days it grows thirsty. It never dies, and one green bud always survives. Come back, and it lifts again.</p>
+        <ul class="stages" aria-label="The nine stages">
+          <li>Seed</li><li>Sprout</li><li class="is-here">Seedling</li><li>Sapling</li><li>Young Tree</li><li>Established</li><li>Mature</li><li>Flourishing</li><li>Ancient</li>
+        </ul>
+      </div>
+      <div class="reveal" style="--delay:150ms;max-width:320px;margin-inline:auto;width:100%">
+        <svg class="tree-art" data-grow viewBox="0 0 260 330" width="100%" role="img" aria-labelledby="tree-art-title">
+          <title id="tree-art-title">A young tree: a gold trunk for prayer, sage leaves, and roots for daily habits.</title>
+          <path class="ground" d="M20 196 Q130 188 240 196" stroke-width="1" fill="none"/>
+          <path class="trunk draw" d="M130 196 C130 160 126 130 132 98 C135 80 130 66 130 50" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <g class="leaves">
+            <path class="unfold" style="--delay:700ms;--origin:right bottom" d="M131 140 C118 136 106 130 96 118 C110 114 124 124 131 140z"/>
+            <path class="unfold" style="--delay:850ms;--origin:left bottom" d="M132 124 C144 120 156 112 164 100 C150 96 138 108 132 124z"/>
+            <path class="unfold" style="--delay:1000ms;--origin:right bottom" d="M131 100 C121 96 112 90 105 80 C116 77 126 86 131 100z"/>
+            <path class="unfold" style="--delay:1150ms;--origin:left bottom" d="M132 86 C141 82 150 76 156 66 C145 64 136 72 132 86z"/>
+            <path class="unfold" style="--delay:1300ms;--origin:center bottom" d="M130 56 C125 50 125 43 130 34 C135 43 135 50 130 56z"/>
+          </g>
+          <g class="roots-line" fill="none" stroke-width="1.8" stroke-linecap="round">
+            <path class="draw" style="--delay:1500ms" d="M130 198 C122 226 104 240 86 262"/>
+            <path class="draw" style="--delay:1650ms" d="M130 198 C134 232 150 250 172 270"/>
+            <path class="draw" style="--delay:1800ms" d="M130 198 C128 240 126 270 128 300"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="section" aria-labelledby="tabs-title">
+    <div class="wrap">
+      <div class="measure reveal">
+        <h2 id="tabs-title" class="title">Four places, each with one job.</h2>
+        <p class="lede" style="margin-top:16px">Wird shows the next step, not the whole list. You never open it to a wall of what you haven’t done.</p>
+      </div>
+      <div class="tabs">
+        <article class="tab-card card reveal">
+          <h3 class="heading">Today</h3>
+          <p>A glance at your tree, the next prayer and one next step. Tap a dot to log a prayer; passed prayers simply read Make up.</p>
+          <div class="tab-card__show" aria-hidden="true">
+            <p style="font-size:1rem">Asr in 24m</p>
+            <div class="dots" style="margin:0"><span class="is-prayed"></span><span class="is-prayed"></span><span></span><span></span><span></span></div>
+          </div>
+        </article>
+        <article class="tab-card card reveal" style="--delay:100ms">
+          <h3 class="heading">Rhythm</h3>
+          <p>Your day prayer by prayer, with the practices you attach to each one, a short ayah, and an evening check‑in, journal and dhikr counter.</p>
+          <div class="tab-card__show" aria-hidden="true" style="padding:0;overflow:hidden">
+            <ul class="prayer-list" style="box-shadow:none;background:transparent">
+              <li><span>Maghrib<span class="t">6:21 PM</span></span><span class="s">Prayed</span></li>
+              <li><span>Isha<span class="t">7:43 PM</span></span><span class="s is-gold">Next</span></li>
+            </ul>
+          </div>
+        </article>
+        <article class="tab-card card reveal">
+          <h3 class="heading">Discover</h3>
+          <p>Stories, the Quran and our history, a few minutes at a time. Only reviewed content from named sources, and a gentle pause after five stories.</p>
+          <div class="tab-card__show" aria-hidden="true">
+            <p style="font-family:var(--font-display);font-size:1.0625rem">You’ve explored 5 stories today.</p>
+            <p class="meta">Keep going, or take what you’ve learned into your day.</p>
+          </div>
+        </article>
+        <article class="tab-card card reveal" style="--delay:100ms">
+          <h3 class="heading">Journey</h3>
+          <p>Your week, your month in Hijri or Gregorian, and one quiet insight worked out on your phone. Only you see it.</p>
+          <div class="tab-card__show" aria-hidden="true">
+            <p class="meta">A pattern in your days</p>
+            <p style="font-family:var(--font-display);font-size:1.0625rem">A tendency, not a cause.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="quran-title" style="background:var(--surface)">
+    <div class="wrap split split--flip">
+      <div class="split__copy reveal">
+        <p class="label label--gold">The Quran</p>
+        <h2 id="quran-title" class="title">Read it, hear it, keep it.</h2>
+        <p class="lede">One reader for everything: the Uthmani text, a translation beside it, and a reciter you can follow verse by verse.</p>
+        <ul>
+          <li><strong style="color:var(--ink)">Listen and follow.</strong> Each verse lights up as it is recited, with repeat and speed controls.</li>
+          <li><strong style="color:var(--ink)">Recite back.</strong> Recite from memory and Wird marks the words to review. Your voice is checked on your phone and never uploaded.</li>
+          <li><strong style="color:var(--ink)">Memorize steadily.</strong> Reviews come back at the right time, so what you learn stays.</li>
+        </ul>
+        <p class="label">Arabic text from Tanzil, unmodified. Translations from QuranEnc.</p>
+      </div>
+      <div class="reveal" style="--delay:150ms">
+        <div class="screen" aria-hidden="true" style="max-width:400px">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center">
+            <p class="roots__name" style="font-size:1.25rem">Al-Baqarah</p>
+            <div class="modes"><span>Listen</span><span>Follow</span><span class="is-on">Recite</span></div>
+          </div>
+          <div class="ayah-card">
+            <p class="quran">لَا يُكَلِّفُ ٱللَّهُ نَفْسًا <span class="word-review">إِلَّا</span> وُسْعَهَا</p>
+            <p class="translation">Allah does not burden a soul beyond what it can bear.</p>
+            <p class="meta">2:286 · 1 word to review</p>
+          </div>
+          <p class="meta" style="text-align:center">Recite back does not grade tajweed and is not a religious ruling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="widgets-title">
+    <div class="wrap">
+      <div class="measure reveal" style="margin-inline:auto;text-align:center">
+        <h2 id="widgets-title" class="title">On your Home Screen and Lock Screen.</h2>
+        <p class="lede" style="margin-top:16px">See the next prayer and today’s ayah without opening the app. A discreet mode hides prayer names on the Lock Screen.</p>
+      </div>
+      <div class="widgets reveal" style="margin-top:48px" aria-hidden="true">
+        <div>
+          <div class="widget widget--small">
+            <p class="meta">Next prayer</p>
+            <div>
+              <p style="font-family:var(--font-display);font-size:1.5rem;color:var(--gold)">Isha</p>
+              <p style="font-size:0.9375rem">7:43 PM</p>
+              <p class="meta">in 1h 12m</p>
+            </div>
+            <div class="dots" style="margin:0;gap:8px"><span class="is-prayed"></span><span class="is-prayed"></span><span class="is-prayed"></span><span class="is-prayed"></span><span></span></div>
+          </div>
+          <p class="label widget-label">Prayers</p>
+        </div>
+        <div>
+          <div class="widget widget--medium">
+            <p class="quran">لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا</p>
+            <p style="font-family:var(--font-display);font-size:0.9375rem;line-height:1.35">Allah does not burden a soul beyond what it can bear.</p>
+            <p class="meta">Al-Baqarah 2:286</p>
+          </div>
+          <p class="label widget-label">Today’s Ayah</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="privacy-title" style="background:var(--surface)">
+    <div class="wrap split">
+      <div class="split__copy reveal">
+        <h2 id="privacy-title" class="title">Your worship is yours.</h2>
+        <p class="lede">No ads, no outside trackers, no public counts of anything devotional. Sharing shows growth, never worship.</p>
+        <a class="text-link" href="privacy/">How Wird handles your data
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <ul class="grouped reveal" style="--delay:150ms;background:var(--canvas)">
+        <li><strong>Location stays on your phone.</strong> <span class="secondary">Exact coordinates are used for prayer times and the Qibla, never sent to us.</span></li>
+        <li><strong>Recitation is checked on device.</strong> <span class="secondary">Held in memory for the check, then discarded.</span></li>
+        <li><strong>Your journal is only for you.</strong> <span class="secondary">It never feeds insights, recommendations or analysis.</span></li>
+        <li><strong>No account needed.</strong> <span class="secondary">If you make one, you can delete it and everything linked to it from inside the app.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="support-title">
+    <div class="wrap split">
+      <div class="split__copy reveal">
+        <h2 id="support-title" class="title">Wird is free, and always will be.</h2>
+        <p class="lede">If it helps you, you can support its work monthly or once, through the App Store. Support never unlocks anything to do with worship.</p>
+      </div>
+      <div class="card card--pad reveal" style="--delay:150ms">
+        <p class="label">Ways to support, monthly or once</p>
+        <ul class="support-tiers" style="padding:0">
+          <li><strong>Seed</strong><span>A small gift</span></li>
+          <li><strong>Sapling</strong><span>A steady hand</span></li>
+          <li><strong>Cedar</strong><span>Deep roots</span></li>
+        </ul>
+        <p class="meta" style="margin-top:12px">Prices are shown in the app in your local currency.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="download" class="section" aria-labelledby="download-title" style="background:var(--surface)">
+    <div class="wrap download reveal">
+      <img class="app-icon" src="assets/icon.svg" width="72" height="72" alt="">
+      <h2 id="download-title" class="title">Your tree is ready when you are.</h2>
+      <div class="store" data-store>
+        <span class="store__soon">Coming soon to the App Store</span>
+      </div>
+      <p class="store__note">For iPhone and iPad with iOS 18 or later.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <a class="brand" href="./">
+        <img class="app-icon" src="assets/icon.svg" width="28" height="28" alt="">
+        <span>Wird</span>
+      </a>
+      <ul class="footer__links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="privacy/">Privacy</a></li>
+        <li><a href="support/">Support</a></li>
+        <li><a href="terms/">Terms</a></li>
+      </ul>
+    </div>
+    <p class="footer__legal">© <span data-year>2026</span> Wird. Apple, iPhone and iPad are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc.</p>
+  </div>
+</footer>
+</body>
+</html>
