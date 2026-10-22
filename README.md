@@ -25,7 +25,7 @@ Then open http://localhost:4173/ and http://localhost:4173/start/.
 
 ## Hosting
 
-GitHub Pages serves `main` at `https://wirdwellness.app`. The `CNAME` file holds the domain and `.nojekyll` keeps Pages from processing the files. Every push to `main` redeploys within a minute or two.
+GitHub Pages serves `main` at `https://www.wirdwellness.app`; the bare domain redirects there. The `CNAME` file holds the domain and `.nojekyll` keeps Pages from processing the files. Every push to `main` redeploys within a minute or two.
 
 The domain is registered at Squarespace and its DNS stays there. These records point it here:
 
@@ -45,7 +45,7 @@ Google Workspace `MX` records stay as they are. `.app` domains require HTTPS; Gi
 2. **App Store link.** Set `APP_STORE_URL` in `assets/wird.js`. Every "Coming soon to the App Store" note then becomes the App Store badge.
 3. **Badge artwork.** Download Apple's official "Download on the App Store" badges from https://tools.applemarketingtools.com and save them unaltered as `assets/badges/app-store-black.svg` and `assets/badges/app-store-white.svg`. Don't redraw, recolour or crop them.
 4. **Smart App Banner.** In `index.html` and `start/index.html`, uncomment the `apple-itunes-app` meta tag and put in the real App Store ID.
-5. **Domain.** Social image and canonical URLs point at `https://wirdwellness.app`. Change them if the site goes live somewhere else.
+5. **Domain.** Social image and canonical URLs point at `https://www.wirdwellness.app`. Change them if the site goes live somewhere else.
 6. **Screens.** The app screens on the pages are drawn in HTML from the redesign files in `docs/design/screens`. Once the redesign ships, check that they still match the app, so the marketing stays accurate (App Review Guideline 2.3).
 7. **Religious content.** The Arabic is the opening clause of Al-Baqarah 2:286, copied from the app's bundled Tanzil text. The English line is the one in the design system. Include both in the qualified review listed in `docs/PRE-LAUNCH-CHECKLIST.md`.
 
