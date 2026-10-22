@@ -21,13 +21,28 @@ python3 -m http.server 4173 --directory website
 
 Then open http://localhost:4173/ and http://localhost:4173/start/.
 
+## Hosting
+
+The site is static files, so any static host serves it; Squarespace, where the `wirdwellness.app` domain lives, cannot host files directly. Keep the domain at Squarespace and point its DNS at the host.
+
+**Netlify (simplest with DNS left at Squarespace)**
+1. Create a free Netlify account and a site from this repo (private repos are fine), or deploy the folder directly: `npx netlify-cli deploy --prod --dir website`.
+2. Site settings › Domain management › add `wirdwellness.app` and `www.wirdwellness.app`.
+3. In Squarespace › Domains › `wirdwellness.app` › DNS: delete the four Squarespace `A` records and the `www` CNAME to `ext-sq.squarespace.com`, then add `A @ 75.2.60.5` and `CNAME www <site-name>.netlify.app`. Leave the Google `MX` records alone.
+4. Netlify issues the HTTPS certificate once DNS resolves. `.app` domains require HTTPS, so wait for it before sharing links.
+
+**Cloudflare Pages (if you would rather have DNS on Cloudflare)**
+Cloudflare Pages needs the domain's nameservers on Cloudflare for the bare domain, so this means moving nameservers from Squarespace to Cloudflare (registration stays at Squarespace; Cloudflare imports the existing records, check the Google `MX` records survive). Then create a Pages project from the repo with root `website` and no build command.
+
+Either way, `404.html` is picked up automatically as the not-found page by both hosts.
+
 ## Before launch
 
 1. **Support email.** Set `SUPPORT_EMAIL` in `assets/wird.js`. App Review requires a working contact on the support URL.
 2. **App Store link.** Set `APP_STORE_URL` in `assets/wird.js`. Every "Coming soon to the App Store" note then becomes the App Store badge.
 3. **Badge artwork.** Download Apple's official "Download on the App Store" badges from https://tools.applemarketingtools.com and save them unaltered as `assets/badges/app-store-black.svg` and `assets/badges/app-store-white.svg`. Don't redraw, recolour or crop them.
 4. **Smart App Banner.** In `index.html` and `start/index.html`, uncomment the `apple-itunes-app` meta tag and put in the real App Store ID.
-5. **Social image URLs.** `og:image` paths are relative. Some link previewers need absolute URLs, so change them to `https://<your domain>/assets/og.png` once the domain is known.
+5. **Domain.** Social image and canonical URLs point at `https://wirdwellness.app`. Change them if the site goes live somewhere else.
 6. **Screens.** The app screens on the pages are drawn in HTML from the redesign files in `docs/design/screens`. Once the redesign ships, check that they still match the app, so the marketing stays accurate (App Review Guideline 2.3).
 7. **Religious content.** The Arabic is the opening clause of Al-Baqarah 2:286, copied from the app's bundled Tanzil text. The English line is the one in the design system. Include both in the qualified review listed in `docs/PRE-LAUNCH-CHECKLIST.md`.
 
