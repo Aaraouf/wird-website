@@ -1,6 +1,8 @@
 # Wird website
 
-Static HTML, CSS and a little JavaScript. No build step, no dependencies, no cookies, no tracking.
+The website for [Wird](https://wirdwellness.app), a calm daily companion for prayer and the Quran. Static HTML, CSS and a little JavaScript: no build step, no dependencies, no cookies, no tracking. Served by GitHub Pages from this repo's `main` branch.
+
+The app itself lives in the private `Wird-app-repo`; references below to `docs/…` and `functions/…` point there.
 
 | Path | What it is | Use in App Store Connect |
 | --- | --- | --- |
@@ -16,25 +18,26 @@ The full privacy policy stays where the app already links it: `https://sakinah-b
 ## Preview
 
 ```bash
-python3 -m http.server 4173 --directory website
+python3 -m http.server 4173
 ```
 
 Then open http://localhost:4173/ and http://localhost:4173/start/.
 
 ## Hosting
 
-The site is static files, so any static host serves it; Squarespace, where the `wirdwellness.app` domain lives, cannot host files directly. Keep the domain at Squarespace and point its DNS at the host.
+GitHub Pages serves `main` at `https://wirdwellness.app`. The `CNAME` file holds the domain and `.nojekyll` keeps Pages from processing the files. Every push to `main` redeploys within a minute or two.
 
-**Netlify (simplest with DNS left at Squarespace)**
-1. Create a free Netlify account and a site from this repo (private repos are fine), or deploy the folder directly: `npx netlify-cli deploy --prod --dir website`.
-2. Site settings › Domain management › add `wirdwellness.app` and `www.wirdwellness.app`.
-3. In Squarespace › Domains › `wirdwellness.app` › DNS: delete the four Squarespace `A` records and the `www` CNAME to `ext-sq.squarespace.com`, then add `A @ 75.2.60.5` and `CNAME www <site-name>.netlify.app`. Leave the Google `MX` records alone.
-4. Netlify issues the HTTPS certificate once DNS resolves. `.app` domains require HTTPS, so wait for it before sharing links.
+The domain is registered at Squarespace and its DNS stays there. These records point it here:
 
-**Cloudflare Pages (if you would rather have DNS on Cloudflare)**
-Cloudflare Pages needs the domain's nameservers on Cloudflare for the bare domain, so this means moving nameservers from Squarespace to Cloudflare (registration stays at Squarespace; Cloudflare imports the existing records, check the Google `MX` records survive). Then create a Pages project from the repo with root `website` and no build command.
+| Type | Host | Value |
+| --- | --- | --- |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | aaraouf.github.io |
 
-Either way, `404.html` is picked up automatically as the not-found page by both hosts.
+Google Workspace `MX` records stay as they are. `.app` domains require HTTPS; GitHub issues the certificate once DNS resolves, after which Enforce HTTPS is turned on in the repo's Pages settings.
 
 ## Before launch
 
