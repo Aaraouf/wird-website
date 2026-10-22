@@ -38,7 +38,7 @@ Either way, `404.html` is picked up automatically as the not-found page by both 
 
 ## Before launch
 
-1. **Support email.** Set `SUPPORT_EMAIL` in `assets/wird.js`. App Review requires a working contact on the support URL.
+1. **Support email.** `hello@wirdwellness.app`, set in `assets/wird.js` and on the Support page. Use the same address in App Store Connect.
 2. **App Store link.** Set `APP_STORE_URL` in `assets/wird.js`. Every "Coming soon to the App Store" note then becomes the App Store badge.
 3. **Badge artwork.** Download Apple's official "Download on the App Store" badges from https://tools.applemarketingtools.com and save them unaltered as `assets/badges/app-store-black.svg` and `assets/badges/app-store-white.svg`. Don't redraw, recolour or crop them.
 4. **Smart App Banner.** In `index.html` and `start/index.html`, uncomment the `apple-itunes-app` meta tag and put in the real App Store ID.

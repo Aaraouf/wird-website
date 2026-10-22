@@ -7,9 +7,8 @@
 // While it is empty, pages show "Coming soon to the App Store" instead of the badge.
 const APP_STORE_URL = "";
 
-// Set this to the support address listed in App Store Connect. App Review needs a working contact.
-// While it is empty, the Support page says contact details are on Wird's App Store page.
-const SUPPORT_EMAIL = "";
+// The support address, also listed in App Store Connect. App Review needs a working contact.
+const SUPPORT_EMAIL = "hello@wirdwellness.app";
 
 document.documentElement.classList.remove("no-js");
 
