@@ -15,6 +15,7 @@ The app itself lives in the private `Wird-app-repo`; references below to `docs/â
 
 The full privacy policy stays where the app already links it: `https://sakinah-blq7852-backend.rork.app/privacy` (`functions/privacy.ts`, `AppEnvironment.privacyPolicyURL`). The website summarises it and links to it rather than keeping a second copy.
 
+Â© 2026 Wird. All rights reserved. This site's design, text and code are not licensed for reuse.
 ## Preview
 
 ```bash
