@@ -41,48 +41,161 @@
 <main id="main" class="section">
   <article class="wrap">
     <div class="prose">
-      <h1 class="display">Privacy</h1>
-      <p class="lede" style="margin-top:16px">Wird is a personal practice companion. It has no ads, no analytics or tracking from other companies, and no public counts of anything devotional.</p>
 
-      <div class="card card--pad">
-        <p><strong>This page is a short summary.</strong> The full privacy policy, the same one linked from the app and the App Store, has every detail and is the one that applies.</p>
-        <a class="text-link" href="https://sakinah-blq7852-backend.rork.app/privacy">Read the full privacy policy
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </a>
-      </div>
+  <h1 class="display">Privacy Policy</h1>
+  <p class="updated">Wird · Last updated 25 October 2026</p>
 
-      <h2>What stays on your device</h2>
-      <ul>
-        <li><strong>Your exact location.</strong> It is used to calculate prayer times and the Qibla, and is never sent to our servers. With an account, only a city name and time zone sync.</li>
-        <li><strong>Your recitation.</strong> Recite back records only while you tap record. Your voice is analysed on your phone, held in memory for that check, then discarded. It is never saved or uploaded.</li>
-        <li><strong>Your compass heading</strong> for the Qibla finder. It is not stored or sent.</li>
-        <li><strong>Everything, if you don’t make an account.</strong> Without one, your records stay on your device.</li>
-      </ul>
+  <div class="card card--pad">
+    <strong>In short:</strong> Wird is a personal practice companion. It has no ads, no third-party analytics or tracking SDKs, no public profiles and no leaderboards. Its one AI feature, Ask, is optional and is described below. Without an account, your records stay on your device. With an account, they sync to our database, where access rules let each account read only its own records; the only things other people see are posts you choose to share in Together. Your Evening Journal is never used for Insights, Discover recommendations, Ask or any AI analysis. You can delete your account and synced data from inside the app.
+  </div>
 
-      <h2>What syncs if you make an account</h2>
-      <p>An account is optional. With one, your records sync over an encrypted connection so you can use Wird on more than one device. Access rules let each account read only its own records.</p>
-      <p>Your Evening Journal syncs too, but it is only ever shown back to you. It is never used for insights, recommendations or analysis.</p>
+  <h2 id="provide">Information you provide</h2>
+  <p>Everything Wird stores comes from what you choose to record in the app. Nothing is required except what you need for the features you use.</p>
 
-      <h2>What Wird never does</h2>
-      <ul>
-        <li>Show ads, or sell or share your data for marketing.</li>
-        <li>Use tracking or analytics services from other companies.</li>
-        <li>Rank people, compare them, or judge anyone’s faith.</li>
-        <li>Rewrite or generate Quran, hadith or dua text.</li>
-      </ul>
+  <h2 id="onboarding">Onboarding answers (public beta)</h2>
+  <p>When you first open Wird, a few optional questions help shape the app around you: what you hope to strengthen, where you're starting from, what usually gets in the way, which practices matter to you, when reminders would help, a broad age range and gender (each with "Prefer not to say"), and how you found Wird. Every question can be skipped. We never ask for your date of birth, address, ethnicity, sect or similar details.</p>
+  <p>Your answers are stored on your device and used to pre-select practices and suggest reminder settings. During the beta we also use them, in aggregate, to understand who Wird is serving and which parts of the app help people most. To see where people stop during setup, Wird records which onboarding steps were completed and the options chosen, tagged with a random identifier created for this installation (not a device or advertising identifier). If you create an account, your answers and these steps are linked to it. Country and broad region (for example "GB", "England") come from the prayer location you choose; precise coordinates are never included. Short "Other" answers you type are limited to 140 characters.</p>
 
-      <h2>Your choices</h2>
-      <ul>
-        <li><strong>Delete your account</strong> from Journey › Me › Account › Delete account. This removes your profile and every record linked to it.</li>
-        <li><strong>Erase data on this device</strong> from the same place when you are not signed in.</li>
-        <li><strong>Turn off notifications or location</strong> at any time in the Settings app on your iPhone or iPad.</li>
-      </ul>
+  <h2 id="account">Account information</h2>
+  <p>Creating an account is optional. When you sign in with Apple or Google, our authentication service (Supabase Auth) receives the email address (or Apple private-relay address) and name the provider shares, and issues a sign-in session. We store a profile with your account ID and, if you choose, a display name, plus your theme, time zone and onboarding status. Your sign-in session is stored in your device's Keychain.</p>
 
-      <h2>Children</h2>
-      <p>Wird is not directed at children under 13, and we do not knowingly collect their personal data.</p>
+  <h2 id="practice">Practice and activity data</h2>
+  <p>You may record religious practice and related activity, including:</p>
+  <ul>
+    <li>obligatory prayers you mark as prayed, and, if you choose, that you prayed at the mosque (a yes/no you set yourself; no mosque name, location or proof is collected);</li>
+    <li>voluntary prayers (type, and optionally rak'ahs);</li>
+    <li>Qur'an reading time in the app, reading you log manually (minutes, surah, ayahs), and memorization progress (verse, status, attempt counts, a 0–1 match score, review dates);</li>
+    <li>dhikr counts;</li>
+    <li>Today's Activity assignments and whether you completed them;</li>
+    <li>your morning intention, midday and afternoon energy/stress taps, and evening focus;</li>
+    <li>tree and droplet history (daily droplets, bonus nourishment, growth stage and health), milestones, favorites, and an internal points record kept from an earlier version of the app.</li>
+  </ul>
+  <p>This data is used inside the app to show your progress, grow your tree, build your Journey and Insights, and choose Discover content. It is not used for advertising, is not sold or shared for marketing, and is never used for public rankings or any judgement of religious worth. Droplets and milestones are app motivation only and do not represent religious reward.</p>
 
-      <h2>Questions</h2>
-      <p>Write to us from the <a href="../support/">Support page</a>.</p>
+  <h2 id="checkins">Nightly Check-ins</h2>
+  <p>A Nightly Check-in records, each optional: your mood (for example Calm, Grateful, Tired or Stressed), your energy (Low / Okay / Good), your stress (Low / Medium / High), and the date and time. Check-ins saved before October 2026 may also contain short written answers from the earlier version; these are kept as you wrote them, are shown only in your Journal history, and are no longer asked for.</p>
+  <p>Check-in answers are used to show your own history and, together with your practice data, to find patterns for your Insights (for example, "On days when you reported lower stress, you also tended to…"). Insights describe tendencies, not causes. Wird does not use check-ins to diagnose any mental-health or medical condition, or to judge your religious status or the strength of your faith. Check-ins are not currently used for Discover recommendations.</p>
+  <p>You can clear tonight's check-in from the check-in screen; this removes it from your device and, when you're signed in, from our database.</p>
+
+  <h2 id="journal">Journal entries</h2>
+  <p>The Evening Journal is an open writing space. An entry contains the date, your text, timestamps, and which optional prompt you used, if any. Entries written with the earlier Evening Reflection may also include the prompt shown at the time and a mood label you chose.</p>
+  <p><strong>How journal text is used:</strong> only to show it back to you. Journal text, and whether you wrote an entry at all, is not used for Insights, Discover personalization or recommendation ranking, AI analysis, sentiment analysis, profiling, advertising or engagement optimization. It earns no droplets and is never counted. It is not sent to any AI provider and is not included in logs or analytics (Wird has no analytics service).</p>
+  <p><strong>Where it is stored:</strong> on your device in a protected app file. When you're signed in, entries also sync over an encrypted (HTTPS/TLS) connection to our database so you can use them on other devices. Journal entries are <em>not</em> end-to-end encrypted: like other synced records, they are stored in readable form in our database. Database access rules stop other users from reading them; people who operate the service and have administrative access to the database could technically access them. We access user records only to run the service, for example to delete an account on request.</p>
+  <p>Deleting a journal entry removes it from your device and, when signed in, from our database at the next sync.</p>
+
+  <h2 id="personalization">Personalization and Insights</h2>
+  <p>Insights are worked out <strong>on your device</strong> by fixed rules (no AI) from your practice data, check-ins and rhythm answers. Only suggestions you accept are saved to your account. Journey summarizes the same records.</p>
+  <p>Discover chooses which verified content to show using the time of day, the Islamic date, recent practice patterns (such as your usual Qur'an time and whether practice has been lighter lately), and your Discover activity. Personalization changes only <strong>selection</strong> and order. Qur'an, hadith, dua and Sunnah content is shown exactly as stored from its source; it is never rewritten or generated.</p>
+
+  <h2 id="discover">Discover activity</h2>
+  <p>When you're signed in, Discover records private signals with your account: content shown to you, content opened, expanded, saved or unsaved, revisited or scrolled past without opening, need/category lenses you open, and searches you type (up to 120 characters), along with the time of day, Islamic occasion and position in the feed. They are used only to make Discover more relevant for you, are never shown as counts, and are never shared.</p>
+  <p>Discover also keeps your learning progress: which stories you opened, the card you reached, whether you finished, saved or shared them, and your quiz answers (right or wrong). Without an account this stays on your device; with an account it syncs so you can resume on another device. It is used to resume stories, show Continue Learning, choose quiz questions from what you have read, suggest what to learn next, and show a short learning summary in your Insights. Quiz results are never ranked, compared with anyone or treated as a measure of faith, and learning never affects your tree.</p>
+  <p>If you export a visual card (for example an ayah or dua card) and choose Save to Photos, Wird asks for permission to add images to your Photos. It can only add the image you created; it cannot read your photo library.</p>
+
+  <h2 id="ask">Ask (sourced answers)</h2>
+  <p>Ask is optional and needs an account. When you ask a question:</p>
+  <ul>
+    <li><strong>What is sent:</strong> the text you type, and the earlier turns of that conversation, go to <strong>Anthropic</strong> (an AI model writes the answer) together with the Qur'an and hadith passages Wird retrieved for it. Your question also goes to <strong>Voyage AI</strong>, which turns it into a numeric representation used to find matching passages. Neither receives your name, email or account ID.</li>
+    <li><strong>What is stored with your account:</strong> your questions, the answers, the sources cited, your feedback on an answer, and a daily count of questions used.</li>
+    <li><strong>Checking a video link:</strong> the link goes to YouTube, TikTok or Meta (Instagram) to fetch the video's public title and caption, and that text, or a transcript you paste, goes to Anthropic. The link, title, caption and any pasted transcript are stored with your account.</li>
+    <li><strong>Reused answers:</strong> to answer repeated questions without asking the AI again, Wird keeps a copy of the question text (up to 500 characters) and its answer, not linked to your account.</li>
+    <li><strong>Never sent:</strong> your journal, check-ins, practice records, location or recordings.</li>
+  </ul>
+  <p>Answers are written by an AI model from the quoted sources, which are shown word for word beneath each answer. They can be wrong and are not religious rulings. Delete a conversation from Ask at any time; deleting your account deletes all of them.</p>
+
+  <h2 id="together">Together (sharing with others)</h2>
+  <p>Together is optional and needs an account. It is the only part of Wird where other people see anything from you, and only what you choose to post:</p>
+  <ul>
+    <li><strong>Reflections</strong> you post are shown to other Together users with your first name only. Others can respond with "Ameen"; who said Ameen is not shown.</li>
+    <li><strong>Circles</strong> are private groups of up to 12 people, joined with an invite code. Posts in a circle are shown only to its members, with your first name.</li>
+    <li><strong>Shared goals:</strong> if you join one, the Qur'an reading you record while it runs counts toward a group total. Others see only the total and how many people joined, never what you read.</li>
+    <li><strong>Masjids</strong> you follow, and any claim or correction you submit for a masjid listing, are stored with your account. Claims and corrections are read by our reviewers.</li>
+    <li><strong>Safety:</strong> you accept the community guidelines before posting. Any post can be reported and any author blocked. Three reports hide a post until a reviewer looks at it. Reports and blocks are stored with your account and are not shown to the person reported or blocked.</li>
+  </ul>
+  <p>You can delete your own posts at any time. Deleting your account deletes your posts, Ameens, reports, blocks, circle memberships and masjid claims; a circle you started passes to its longest-standing member.</p>
+
+  <h2 id="location">Location</h2>
+  <p>If you allow location access, your device's location is used to calculate prayer times and the Qibla direction. Precise coordinates are stored only on your device and never sent to our servers. To show a city name, your coordinates (or a city you type) are sent to Apple's geocoding service. If you have an account, only the city label (for example "London, United Kingdom") and time zone are synced.</p>
+
+  <h2 id="device">Compass, microphone and notifications</h2>
+  <ul>
+    <li><strong>Compass:</strong> the Qibla finder reads your heading on the device. It is not stored or sent.</li>
+    <li><strong>Microphone:</strong> recite-back records only while you tap record. Your recitation is analysed entirely on your device by a downloaded Qur'an speech model, held in memory for that check, then discarded. It is never saved or uploaded. Recite-back does not grade tajweed and is not a religious ruling.</li>
+    <li><strong>Notifications:</strong> reminders are scheduled locally. We use no push-notification servers, send no marketing, and notifications never include journal content.</li>
+  </ul>
+
+  <h2 id="diagnostics">Crash and diagnostic reports</h2>
+  <p>When Wird crashes, freezes, or fails to save or sync, it sends an anonymous report to our own database so we can find and fix the problem. A report contains the type of problem, technical details from Apple's MetricKit (such as the app code that was running), the app version, the iOS version and the iPhone model. It never includes your name, email, account, location, practice records, check-ins or journal, and it is not linked to you or your account. We use no third-party crash-reporting service. You can turn reports off in Settings → Privacy &amp; sources → Diagnostics.</p>
+
+  <h2 id="use">How we use information</h2>
+  <ul>
+    <li>To provide the app's features and sync your records between your devices.</li>
+    <li>To show your progress, Journey and Insights.</li>
+    <li>To choose relevant verified content in Discover.</li>
+    <li>To personalise setup and, in aggregate, to understand during the beta who uses Wird and which features help (from optional onboarding answers).</li>
+    <li>To keep the service working and secure, and to delete data when you ask.</li>
+  </ul>
+
+  <h2 id="not-use">How we do not use information</h2>
+  <ul>
+    <li>No advertising, ad identifiers, or third-party analytics or tracking SDKs. Onboarding answers stay in our own database.</li>
+    <li>We do not sell your data or share it for marketing.</li>
+    <li>No public profiles, comparisons or religious rankings. Your records are never visible to other users; only posts you choose to share in Together are, with your first name.</li>
+    <li>No AI analysis of your journal, check-ins, practice records or recordings. The only text sent to an AI provider is what you type into Ask. Journal text is excluded from Insights, Discover, Ask and every form of analysis.</li>
+    <li>No diagnoses, and no judgements of faith, from any data.</li>
+  </ul>
+
+  <h2 id="security">Data storage and security</h2>
+  <ul>
+    <li><strong>Without an account</strong>, records stay in protected files on your device (iOS Data Protection). They are included in your own device backups (iCloud or computer) if you use them.</li>
+    <li><strong>With an account</strong>, synced data is stored with our database provider, Supabase. Every table holding user records has row-level security enabled, with policies that let a signed-in account read and change only rows carrying its own account ID.</li>
+    <li><strong>In transit:</strong> the app talks to our servers only over HTTPS (TLS).</li>
+    <li><strong>At rest:</strong> Supabase states that customer data is encrypted at rest (AES-256). Wird does not add its own field-level or end-to-end encryption, so stored records are readable to those with administrative database access.</li>
+    <li>Administrative (service) database access is used only by our server functions (account deletion, Ask, and linking an account from Wird's earlier sign-in system) and for reviewers importing religious content.</li>
+  </ul>
+
+  <h2 id="retention">Data retention and deletion</h2>
+  <ul>
+    <li><strong>Journal entry or check-in:</strong> deleting one removes it from your device immediately and from our database at the next sync (straight away if you're online).</li>
+    <li><strong>Delete account</strong> (Journey → Me → Account): permanently deletes your profile and every record linked to your account in our database, including practice data, check-ins, journal entries, Insights, Discover activity, Ask conversations, Together posts and onboarding answers, then erases the app's data on that device. Your sign-in identity is held by our authentication service; contact us if you'd like it removed as well.</li>
+    <li><strong>Sign out or Erase on-device data</strong> clears the app's data from that device only.</li>
+    <li>Synced data is kept until you delete it or your account. Deleted data may remain in our database provider's backups for a limited time and is not restored from them. We can't guarantee immediate removal from backups.</li>
+  </ul>
+
+  <h2 id="providers">Service providers</h2>
+  <ul>
+    <li><strong>Supabase</strong> stores synced account data (everything described above when you're signed in).</li>
+    <li><strong>Supabase Auth</strong> handles sign-in, together with Apple or Google if you use them.</li>
+    <li><strong>Apple</strong> geocoding turns coordinates or a typed city into a city name.</li>
+    <li><strong>GitHub Pages</strong> hosts our website and this policy (wirdwellness.app). It sets no cookies.</li>
+    <li><strong>Cloudflare</strong> hosts our Qur'an audio lookup and the public Qur'an reading pages (/quran). Those pages need no account and set no cookies; your text size, translation, reciter and speed choices are kept only in your browser's local storage. They load the Amiri Quran font from jsDelivr.</li>
+    <li><strong>Quran.com</strong> (recitation audio and Qur'an transliteration), <strong>QuranEnc.com</strong> (translations) and <strong>Hugging Face</strong> (the optional speech model download) receive ordinary content requests, without your account details.</li>
+    <li><strong>Anthropic</strong> writes Ask's answers and <strong>Voyage AI</strong> powers Ask's search, from the question text described under Ask, without your account details.</li>
+    <li><strong>YouTube, TikTok and Meta</strong> receive a video link only when you ask Wird to check it.</li>
+  </ul>
+  <p>None of these providers receives your journal text except Supabase, as storage, when you're signed in.</p>
+
+  <h2 id="choices">Your choices and rights</h2>
+  <ul>
+    <li>Use Wird without an account; your records stay on your device.</li>
+    <li>Turn off anonymous crash reports in Settings → Privacy &amp; sources → Diagnostics.</li>
+    <li>Answer as much or as little of any check-in as you like, and write in the journal only if you want to.</li>
+    <li>Delete individual journal entries or check-ins, or your whole account, at any time.</li>
+    <li>Turn off location or notifications in iOS Settings.</li>
+    <li>Depending on where you live, you may have rights to access, correct or delete your data. Contact us to make a request.</li>
+  </ul>
+
+  <h2 id="religious">Religious content</h2>
+  <p>Discover shows only reviewed content from named sources. Ask quotes its sources word for word and its answers are written by an AI model. Wird does not issue religious rulings.</p>
+
+  <h2 id="children">Children</h2>
+  <p>Wird is not directed at children under 13, and we do not knowingly collect their personal data.</p>
+
+  <h2 id="changes">Policy changes</h2>
+  <p>If this policy changes, we will update the date above and, for significant changes, tell you in the app.</p>
+
+  <h2 id="contact">Contact</h2>
+  <p>Questions or requests about your data: email <a href="mailto:hello@wirdwellness.app">hello@wirdwellness.app</a>.</p>
     </div>
   </article>
 </main>
