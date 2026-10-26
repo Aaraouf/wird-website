@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Review a report · Wird</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f2ebe0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f141c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/wird.css">
+<script src="../assets/wird.js" defer></script>
+<style>
+  .post { white-space: pre-wrap; margin: 16px 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .muted { color: var(--ink-2, inherit); opacity: .75; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <nav class="nav__bar" aria-label="Main">
+    <a class="brand" href="../">
+      <img class="app-icon" src="../assets/icon.svg" width="32" height="32" alt="">
+      <span class="brand__word">Wird</span>
+    </a>
+  </nav>
+</header>
+
+<main id="main" class="section">
+  <article class="wrap">
+    <div class="prose" aria-live="polite">
+      <h1 class="display">Review a report</h1>
+      <p id="message" class="lede">Loading the reported post…</p>
+
+      <div id="review" class="card card--pad" hidden>
+        <p class="muted" id="meta"></p>
+        <p class="post" id="post"></p>
+        <div class="actions">
+          <button class="btn btn--action" id="confirm" type="button"></button>
+          <a class="btn btn--tint" href="../">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<script>
+// The Remove / Keep links in a Wird report email open this page. Nothing changes until the reviewer
+// taps Confirm: mail apps open links on their own to scan them, so the link alone must never act.
+(function () {
+  var API = "https://mipbkarotllqylvfdcls.supabase.co/functions/v1/moderate";
+  var q = new URLSearchParams(location.search);
+  var link = { scope: q.get("scope"), post: q.get("post"), action: q.get("action"), exp: Number(q.get("exp")), sig: q.get("sig") };
+  var message = document.getElementById("message");
+  var review = document.getElementById("review");
+  var confirm = document.getElementById("confirm");
+
+  function say(text) { message.textContent = text; }
+  function call(extra) {
+    return fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.assign({}, link, extra || {})),
+    }).then(function (r) { return r.json(); });
+  }
+
+  if (!link.post || !link.sig) { say("This link is incomplete. Open it again from the report email."); return; }
+
+  call().then(function (d) {
+    if (d.error) { say(d.error); return; }
+    if (d.gone) { say("This post no longer exists: its author deleted it. Nothing to do."); return; }
+    var removing = d.action === "remove";
+    say(removing ? "Remove this post for everyone?" : "Keep this post and show it to everyone again?");
+    document.getElementById("meta").textContent =
+      (link.scope === "circle" ? "Circle post" : "Public reflection") + " · " + d.reports + " report" + (d.reports === 1 ? "" : "s") +
+      " · now " + (d.status === "hidden" ? "hidden from everyone" : d.status === "removed" ? "removed" : "visible");
+    document.getElementById("post").textContent = d.body; // shown as text, never as HTML
+    confirm.textContent = removing ? "Confirm: remove post" : "Confirm: keep it";
+    review.hidden = false;
+  }).catch(function () { say("Couldn't reach Wird. Check your connection and open the link again."); });
+
+  confirm.addEventListener("click", function () {
+    confirm.disabled = true;
+    call({ confirm: true }).then(function (d) {
+      if (d.error) { say(d.error); confirm.disabled = false; return; }
+      review.hidden = true;
+      say(d.status === "removed"
+        ? "Done. The post is removed for everyone and will be deleted for good in 30 days. You can still keep it from the email until then."
+        : "Done. The post is visible to everyone again.");
+    }).catch(function () { say("Couldn't reach Wird. Please try again."); confirm.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
