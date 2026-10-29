@@ -14,6 +14,9 @@ The app itself lives in the private `Wird-app-repo`; references below to `docs/�
 | `privacy/` | The full privacy policy | Privacy Policy URL |
 | `terms/` | Apple's standard EULA plus what Wird is and isn't | |
 | `moderate/` | Report review page opened from the Remove / Keep links in a report email. Calls the app's `moderate` edge function; nothing happens until the reviewer taps Confirm. Not indexed | |
+| `learn/plans/` | What is free, what Wird Plus and Wird Family cost | Link from the paywall and the App Store description |
+| `compare/…/`, `guides/…/` | Comparison and guide pages (five at launch); drafts and audits live in the app repo under `docs/marketing/gtm/content/` | |
+| `sitemap.xml`, `robots.txt`, `llms.txt` | Discovery files for search engines and AI agents; add every new page to the sitemap and to `llms.txt` | |
 | `404.html` | Not-found page (uses absolute paths, so it works at any depth) | |
 | `assets/` | `wird.css`, `wird.js` (support email, App Store link, badge swap, animation pausing), `icon.svg`, `apple-touch-icon.png`, `og.png` (social image) | |
 | `CNAME` | The custom domain for GitHub Pages: `www.wirdwellness.app`. Don't delete it | |
