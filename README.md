@@ -1,28 +1,41 @@
 # Wird website
 
-The website for [Wird](https://wirdwellness.app), a calm daily companion for prayer and the Quran. Static HTML, CSS and a little JavaScript: no build step, no dependencies, no cookies, no tracking. Served by GitHub Pages from this repo's `main` branch.
+The website for [Wird](https://wirdwellness.app), a calm daily companion for prayer and the Quran. Static HTML, CSS and a little JavaScript: no build step, no dependencies, no cookies, no tracking. Served by GitHub Pages from this repo's `main` branch (see Deploy).
 
 The app itself lives in the private `Wird-app-repo`; references below to `docs/…` and `functions/…` point there.
 
+## What is here
+
 | Path | What it is | Use in App Store Connect |
 | --- | --- | --- |
-| `/` | Product website: the full tour of Wird | Marketing URL |
-| `/start/` | Landing page: one audience, one action (get Wird) | Campaign and ad links |
-| `/support/` | Help topics and contact | Support URL |
-| `/privacy/` | Short summary, linking to the full policy | Keep using the full policy URL below |
-| `/terms/` | Apple's standard EULA plus what Wird is and isn't | |
-| `/404.html` | Not-found page (uses absolute paths) | |
+| `index.html` (`/`) | Product website: the full tour of Wird | Marketing URL |
+| `start/` | Landing page: one audience, one action (get Wird) | Campaign and ad links |
+| `support/` | Help topics and contact (hello@wirdwellness.app) | Support URL |
+| `privacy/` | The full privacy policy | Privacy Policy URL |
+| `terms/` | Apple's standard EULA plus what Wird is and isn't | |
+| `moderate/` | Report review page opened from the Remove / Keep links in a report email. Calls the app's `moderate` edge function; nothing happens until the reviewer taps Confirm. Not indexed | |
+| `404.html` | Not-found page (uses absolute paths, so it works at any depth) | |
+| `assets/` | `wird.css`, `wird.js` (support email, App Store link, badge swap, animation pausing), `icon.svg`, `apple-touch-icon.png`, `og.png` (social image) | |
+| `CNAME` | The custom domain for GitHub Pages: `www.wirdwellness.app`. Don't delete it | |
+| `.nojekyll` | Keeps Pages from running Jekyll over the files | |
 
-The full privacy policy stays where the app already links it: `https://sakinah-blq7852-backend.rork.app/privacy` (`functions/privacy.ts`, `AppEnvironment.privacyPolicyURL`). The website summarises it and links to it rather than keeping a second copy.
+Every page links `assets/wird.css` and `assets/wird.js`, so a change there reaches the whole site. There is no build step: edit the HTML, preview, push.
+
+The old policy address `https://sakinah-blq7852-backend.rork.app/privacy` now redirects to `/privacy/`; link the site address from the app.
 
 © 2026 Wird. All rights reserved. This site's design, text and code are not licensed for reuse.
-## Preview
+
+## Preview locally
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Then open http://localhost:4173/ and http://localhost:4173/start/.
+Then open http://localhost:4173/ and http://localhost:4173/start/. Pages shows `404.html` for missing paths on its own; locally, open http://localhost:4173/404.html directly.
+
+## Deploy
+
+Pushing to `main` is the deploy: GitHub Pages rebuilds the site from the branch within a minute or two. Work on a branch and open a pull request against `main`; nothing else is needed.
 
 ## Hosting
 
