@@ -870,21 +870,20 @@ a:hover { text-decoration-thickness: 2px; }
 .arc .pd.is-prayed { fill: var(--canvas); transition: fill 300ms ease; transition-delay: var(--delay, 0ms); }
 .arc.is-grown .pd.is-prayed { fill: var(--gold-fill); }
 
-/* Follow along: words light in turn, the way a verse does under a reciter in the app.
-   Six words at 500ms each, then a rest, so the cycle breathes at 4.5s. */
+/* Follow along: the whole verse lights while it is recited, then rests,
+   the way the app's Follow mode highlights one ayah at a time. 4.5s cycle. */
 
-.follow span {
-  display: inline-block;
-  border-radius: 6px;
-  padding: 0 3px;
-  margin: 0 -3px;
-  animation: follow 4.5s linear calc(var(--i, 0) * 500ms) infinite;
+.follow {
+  border-radius: 8px;
+  padding: 0 6px;
+  margin: 0 -6px;
+  animation: follow 4.5s linear infinite;
 }
 
 @keyframes follow {
-  0%, 1% { background-color: transparent; color: var(--ink); }
-  4%, 11% { background-color: color-mix(in srgb, var(--gold-fill) 26%, transparent); color: var(--gold); }
-  15%, 100% { background-color: transparent; color: var(--ink); }
+  0%, 4% { background-color: transparent; color: var(--ink); }
+  10%, 66% { background-color: color-mix(in srgb, var(--gold-fill) 26%, transparent); color: var(--gold); }
+  74%, 100% { background-color: transparent; color: var(--ink); }
 }
 
 /* Hero screens drift apart a little as the page starts to scroll (wide screens only). */
@@ -994,8 +993,8 @@ a:hover { text-decoration-thickness: 2px; }
   .tagline .word { color: var(--ink); transform: none; transition: none; }
   .tagline .word.is-gold { color: var(--gold); }
   .tagline .word.is-leaf { color: var(--leaf); }
-  .breathe, .follow span, .season .leaves .unfold, .season .season-drop, .season .season-ripple { animation: none; }
-  .follow span:nth-child(3) { background-color: color-mix(in srgb, var(--gold-fill) 26%, transparent); color: var(--gold); }
+  .breathe, .follow, .season .leaves .unfold, .season .season-drop, .season .season-ripple { animation: none; }
+  .follow { background-color: color-mix(in srgb, var(--gold-fill) 26%, transparent); color: var(--gold); }
   .moment.is-in .drop, .moment.is-in .ripple, .moment.is-in .leaves path, .moment.is-in .mini-btn--action,
   .moment.is-in .roots__actions, .moment.is-in .roots__done { animation: none; }
   .moment .dots span.is-prayed::after { opacity: 1; transform: scale(1); transition: none; }

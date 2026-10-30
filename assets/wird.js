@@ -147,7 +147,7 @@ function setUpTagline() {
   words.forEach((w) => observer.observe(w));
 }
 
-// Pause looping animations (the drying leaves, the follow-along words, the breathing seed)
+// Pause looping animations (the drying leaves, the follow-along verse, the breathing seed)
 // while they are off screen. One observer, toggling one class; CSS does the pausing.
 function setUpPause() {
   const loops = document.querySelectorAll("[data-pause]");
