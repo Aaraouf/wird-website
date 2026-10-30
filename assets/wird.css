@@ -668,10 +668,20 @@ a:hover { text-decoration-thickness: 2px; }
 /* Pointer feedback. Cards lift a touch; the reveal transition hands over once the card is in. */
 
 @media (hover: hover) and (pointer: fine) {
-  .lift.is-in, .lift .card, .lift.card {
-    transition: transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out);
+  .lift { position: relative; }
+  .lift.is-in, .lift .card, .lift.card { transition: transform 250ms var(--ease-out); }
+  .lift::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: var(--shadow-lift);
+    opacity: 0;
+    transition: opacity 250ms var(--ease-out);
+    pointer-events: none;
   }
-  .lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+  .lift:hover { transform: translateY(-2px); }
+  .lift:hover::after { opacity: 1; }
 }
 
 /* Tagline: words light in reading order as they cross a line on screen. */
@@ -772,12 +782,13 @@ a:hover { text-decoration-thickness: 2px; }
   inset: 0;
   border-radius: 999px;
   background: var(--gold-fill);
-  transform: scale(0);
-  transition: transform 300ms var(--ease-settle);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 300ms var(--ease-settle), transform 300ms var(--ease-settle);
   transition-delay: calc(600ms + var(--i, 0) * 250ms);
 }
 
-.moment.is-in .dots span.is-prayed::after { transform: scale(1); }
+.moment.is-in .dots span.is-prayed::after { opacity: 1; transform: scale(1); }
 
 .moment .drop, .moment .ripple { opacity: 0; }
 
@@ -987,7 +998,7 @@ a:hover { text-decoration-thickness: 2px; }
   .follow span:nth-child(3) { background-color: color-mix(in srgb, var(--gold-fill) 26%, transparent); color: var(--gold); }
   .moment.is-in .drop, .moment.is-in .ripple, .moment.is-in .leaves path, .moment.is-in .mini-btn--action,
   .moment.is-in .roots__actions, .moment.is-in .roots__done { animation: none; }
-  .moment .dots span.is-prayed::after { transform: scale(1); transition: none; }
+  .moment .dots span.is-prayed::after { opacity: 1; transform: scale(1); transition: none; }
   .moment .growth__fill { transform: none; transition: none; }
   .arc .sun { offset-distance: 79%; transition: none; }
   .arc .draw { transition: none; }
@@ -1134,3 +1145,43 @@ a:hover { text-decoration-thickness: 2px; }
 .plans li { list-style: none; padding: 14px 16px; border-radius: var(--radius-sm); background: var(--canvas); display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
 .plans strong { font-family: var(--font-display); font-weight: 500; font-size: 1.0625rem; }
 .plans span { color: var(--ink-secondary); text-align: right; font-size: 0.9375rem; }
+
+/* ------------------------------------------------------------------------
+   Inner pages and small responses (2026-10-30). Same rules as above: settle,
+   never bounce; transform and opacity only; nothing moves under Reduce Motion.
+   ------------------------------------------------------------------------ */
+
+/* A page's opening lines settle in one after another; wird.js adds .reveal and the
+   delay to each child of [data-stagger], so without JavaScript nothing is hidden. */
+[data-stagger] > .reveal { transition-duration: 700ms; }
+
+/* The verse on the guide: set apart, quiet, its source beneath it. */
+.prose figure.ayah { margin: 32px 0 8px; padding: 24px; border-radius: var(--radius-lg); background: var(--gold-soft); }
+.prose figure.ayah blockquote { margin: 0; padding: 0; border: 0; color: var(--ink); }
+.prose figure.ayah blockquote p { font-size: 1.125rem; line-height: 1.6; margin: 0; }
+.prose figure.ayah figcaption { font-size: 0.875rem; color: var(--ink-secondary); margin-top: 12px; }
+
+/* Responses: links and rows answer the pointer, buttons answer the press. */
+.nav__links a:active, .footer__links a:active { transform: scale(0.97); }
+.nav__links a { transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out), transform 160ms var(--ease-out); }
+.text-link:active svg { transform: translateX(4px); }
+
+@media (hover: hover) and (pointer: fine) {
+  .nav__links a:hover { background: var(--tint); }
+  .faq summary:hover svg { color: var(--ink); }
+}
+
+.plans li { transition: background-color 200ms var(--ease-out); }
+.plans strong { white-space: nowrap; }
+
+/* On a phone, the plan name sits above its price instead of squeezing beside it. */
+@media (max-width: 520px) {
+  .plans li { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .plans span { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-stagger] > .reveal { transition: none; }
+  .nav__links a, .plans li, .lift::after { transition: none; }
+  .nav__links a:active, .footer__links a:active { transform: none; }
+}

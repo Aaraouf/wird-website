@@ -47,6 +47,17 @@ function setUpStoreLinks() {
   });
 }
 
+// Let a page's opening lines settle in one after another: each child of [data-stagger]
+// becomes a reveal with a growing delay (capped, so long lists never feel slow).
+function setUpStagger() {
+  document.querySelectorAll("[data-stagger]").forEach((group) => {
+    Array.from(group.children).forEach((child, i) => {
+      child.classList.add("reveal");
+      child.style.setProperty("--delay", Math.min(i, 5) * 80 + "ms");
+    });
+  });
+}
+
 // Fade sections up once as they enter, then stop observing them.
 function setUpReveals() {
   const items = document.querySelectorAll(".reveal");
@@ -160,6 +171,7 @@ function setYear() {
 
 setUpStoreLinks();
 setUpContact();
+setUpStagger();
 setUpReveals();
 setUpTrees();
 setUpTagline();
