@@ -8,8 +8,8 @@ Support: hello@wirdwellness.app
 
 - [Overview](https://www.wirdwellness.app/): what Wird is, the tree, prayer times, the Quran reader, privacy, plans
 - [Start](https://www.wirdwellness.app/start/): the short version, with questions and answers
-- [Plans](https://www.wirdwellness.app/learn/plans/): what is free, what Wird Plus and Wird Family cost, what no plan takes away
-- [Getting back into prayer after years away](https://www.wirdwellness.app/guides/getting-back-into-prayer-after-years-away/)
+- [Plans](https://www.wirdwellness.app/learn/plans/): what is free, what Wird Plus and Wird Family add, and what they cost
+- [Coming back to prayer](https://www.wirdwellness.app/guides/getting-back-into-prayer-after-years-away/): a short, gentle guide for anyone returning after time away
 - [Support](https://www.wirdwellness.app/support/): prayer times, reminders, widgets, account and data, plans and payments
 - [Privacy](https://www.wirdwellness.app/privacy/): no ads, no tracking, location and recitation stay on the device
 - [Terms](https://www.wirdwellness.app/terms/): Apple's standard license, what Wird is and is not, plans and payments
