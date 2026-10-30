@@ -84,12 +84,12 @@ Every animation has a job, and all of it follows the app's motion rules (`docs/D
 | Rhythm screen (product) | The day draws from Fajr to now, the sun travels the arc, prayers fill as it passes | The sun arc on Rhythm |
 | The living tree (product) | Scrolling grows one tree from Seed to Sapling, the first four of nine stages, with the stage chips and a line of copy following. The other five are left for the app | The idea of stages, with some mystery kept |
 | The idea (landing) | Every 14s the leaves dry and droop, a drop reaches the soil, and they lift again from the top down | "Waits when you can't"; the tree never dies |
-| Quran (both pages) | Words light in turn, 500ms each, then rest | Follow-along under a reciter |
+| Quran (both pages) | The whole verse lights, holds, then rests | Follow-along under a reciter |
 | Hero (product) | The three screens drift at different speeds as the page starts to scroll | Depth, only on wide screens |
 
 Reduce Motion turns all of it off and shows end states, including the page fade. The `.season`, `.moment`, `.arc` and `.grow` blocks in `assets/wird.css` hold the timelines.
 
-Looping animations (the drying leaves, the follow-along words, the breathing seed) carry `data-pause`; an observer in `wird.js` pauses them while they are off screen, so a page at rest runs no animation the visitor cannot see.
+Looping animations (the drying leaves, the follow-along verse, the breathing seed) carry `data-pause`; an observer in `wird.js` pauses them while they are off screen, so a page at rest runs no animation the visitor cannot see.
 
 ## Verified
 
